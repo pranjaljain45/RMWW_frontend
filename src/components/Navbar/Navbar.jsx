@@ -79,7 +79,7 @@ const Navbar = () => {
                         <div className="megamenu">
                             <div className="againcolumn">
                                 <h4>CLOTHING</h4>
-                                <p onClick={() => handleRedirect('/men/dresses/bandgalas')}>Bandgalas</p>
+                                <p onClick={() => handleRedirect('/men/dresses/bandhgalas')}>Bandhgalas</p>
                                 <p onClick={() => handleRedirect('/men/dresses/kurtas-sherwanis')}>Kurtas & Sherwanis</p>
                                 <p onClick={() => handleRedirect('/men/dresses/indo-westerns')}>IndoWesterns</p>
                                 <p onClick={() => handleRedirect('/men/dresses/suits')}>Suits</p>

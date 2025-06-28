@@ -14,7 +14,7 @@ const Earrings = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("${import.meta.env.VITE_BACKEND_URL}/images/wearData/womenWear.json");
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/images/wearData/womenWear.json`);
         const filtered = res.data.filter(item => item.subcategory === "earrings");
         setEarringsData(filtered);
       } catch (error) {

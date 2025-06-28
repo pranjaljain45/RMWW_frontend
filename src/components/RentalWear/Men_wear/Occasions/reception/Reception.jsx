@@ -15,7 +15,7 @@ const Reception = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("${import.meta.env.VITE_BACKEND_URL}/images/wearData/menWear.json");
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/images/wearData/menWear.json`);
         const filtered = res.data.filter(item => item.subcategory === "reception");
         setReceptionData(filtered);
       } catch (error) {

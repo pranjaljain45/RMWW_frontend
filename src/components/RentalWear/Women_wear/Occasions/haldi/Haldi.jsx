@@ -14,7 +14,7 @@ const Haldi = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("${import.meta.env.VITE_BACKEND_URL}/images/wearData/womenWear.json");
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/images/wearData/womenWear.json`);
         const filtered = res.data.filter(item => item.subcategory === "haldi");
         setHaldiData(filtered);
       } catch (error) {
@@ -37,8 +37,8 @@ const Haldi = () => {
     <div className="haldi-page">
       {firstItem && (
         <div className="breadcrumb">
-          {/* <Link to="/" className="breadcrumb-link">Home</Link> */}
-          <span className="breadcrumb-separator">/</span>
+          <Link to="/" className="breadcrumb-link">Home</Link>
+          {/* <span className="breadcrumb-separator">/</span> */}
           <Link
             to={`/${firstItem.gender}/${firstItem.category}/${firstItem.subcategory}s`}
             className="breadcrumb-link"

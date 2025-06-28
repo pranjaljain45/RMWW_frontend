@@ -23,7 +23,7 @@ const Address = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/address", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/address`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

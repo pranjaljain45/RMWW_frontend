@@ -19,8 +19,8 @@ const SearchOverlay = ({ onClose }) => {
     const handleSearch = async (searchTerm) => {
         try {
             const [womenRes, menRes] = await Promise.all([
-                axios.get('${import.meta.env.VITE_BACKEND_URL}/api/wear/women'),
-                axios.get('${import.meta.env.VITE_BACKEND_URL}/api/wear/men'),
+                axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/wear/women`),
+                axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/wear/men`),
             ]);
 
             const allProducts = [...womenRes.data, ...menRes.data];

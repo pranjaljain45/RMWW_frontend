@@ -14,7 +14,7 @@ const Necklaces = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("${import.meta.env.VITE_BACKEND_URL}/images/wearData/womenWear.json");
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/images/wearData/womenWear.json`);
         const filtered = res.data.filter(item => item.subcategory === "necklaces");
         setNecklaceData(filtered);
       } catch (error) {

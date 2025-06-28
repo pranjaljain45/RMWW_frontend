@@ -14,7 +14,7 @@ const Wedding = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("${import.meta.env.VITE_BACKEND_URL}/images/wearData/womenWear.json");
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/images/wearData/womenWear.json`);
         const filtered = res.data.filter(item => item.subcategory === "wedding");
         setWeddingData(filtered);
       } catch (error) {
