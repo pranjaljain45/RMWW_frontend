@@ -1,0 +1,177 @@
+import React, { useState, useContext } from 'react';
+import img from '../../assets/headerimg.jpg';
+import './Header.css';
+import { useNavigate } from 'react-router-dom';
+import SearchOverlay from '../SearchOverlay/SearchOverlay';
+import CartDrawer from '../SideCart/CartDrawer';
+import { Link } from 'react-router-dom';
+import { CartContext } from '../CartContext/CartContext';
+import { getAuth } from "firebase/auth";
+
+
+
+
+const Header = () => {
+
+    const [showSearch, setShowSearch] = useState(false);
+    const [showCart, setShowCart] = useState(false);
+
+    const { cartItems } = useContext(CartContext);
+    const cartCount = cartItems.length;
+
+
+    const navigate = useNavigate();
+
+    const handleRedirect = (path) => {
+        if (path === '/search') setShowSearch(true);
+        else if (path === '/cart') setShowCart(true);
+        else navigate(path);
+    };
+
+
+
+
+    return (
+        <>
+
+            {/* Quote */}
+            {/* <div className="quoteLine">
+                <p>Style. Smile. Send Back.</p>
+            </div> */}
+
+
+            <div className="headerBanner">
+                <img src={img} alt="Header Background" className="backgroundImage" />
+
+                <div className="centeredQuote">
+                    <h1 className="brandName">RentMyWeddingWear</h1>
+                    <p className="tagline">Style. Smile. Send Back.</p>
+                </div>
+
+            </div>
+
+
+            {/* <img className="headerContainer" src={img} alt="header" /> */}
+
+            <div className="div1">
+                <div className="nameOfWebsite">
+                    <h3>RentMy</h3>
+                    <h2>Wedding</h2>
+                    <h3>Wear</h3>
+                </div>
+
+                <div className="categories">
+
+                    {/* WOMENWEAR */}
+                    <div className="dropdown">
+                        <span className="dropbtn">WomenWear</span>
+
+                        <div className="mega-menu">
+                            <div className="column">
+                                <h4>CLOTHING</h4>
+                                <p onClick={() => handleRedirect('/women/dresses/lehengas')}>Lehengas</p>
+                                <p onClick={() => handleRedirect('/women/dresses/gowns')}>Gowns</p>
+                                <p onClick={() => handleRedirect('/women/dresses/anarkalis')}>Anarkalis</p>
+                                <p onClick={() => handleRedirect('/women/dresses/sarees-blouses')}>Sarees & Blouses</p>
+                                <p onClick={() => handleRedirect('/women/dresses/indo-western')}>Indo-Western</p>
+                                <p onClick={() => handleRedirect('/women/dresses/western-wear')}>Western Wear</p>
+                            </div>
+
+                            <div className="column">
+                                <h4>ACCESSORIES</h4>
+                                <p onClick={() => handleRedirect('/women/accessories/earrings')}>Earrings</p>
+                                <p onClick={() => handleRedirect('/women/accessories/necklaces')}>Necklaces</p>
+                                <p onClick={() => handleRedirect('/women/accessories/bangles-bracelets')}>Bangles & Bracelets</p>
+                                <p onClick={() => handleRedirect('/women/accessories/rings')}>Rings</p>
+                                <p onClick={() => handleRedirect('/women/accessories/bags')}>Bags</p>
+                            </div>
+
+                            <div className="column">
+                                <h4>OCCASIONS</h4>
+                                <p onClick={() => handleRedirect('/women/occasions/engagement')}>Engagement</p>
+                                <p onClick={() => handleRedirect('/women/occasions/mehendi')}>Mehendi</p>
+                                <p onClick={() => handleRedirect('/women/occasions/haldi')}>Haldi </p>
+                                <p onClick={() => handleRedirect('/women/occasions/sangeet')}>Sangeet</p>
+                                <p onClick={() => handleRedirect('/women/occasions/cocktail')}>Cocktail</p>
+                                <p onClick={() => handleRedirect('/women/occasions/wedding')}>Wedding</p>
+                                <p onClick={() => handleRedirect('/women/occasions/reception')}>Reception</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* MENWEAR */}
+                    <div className="dropdown">
+                        <span className="dropbtn">Menwear</span>
+
+                        <div className="mega-menu">
+                            <div className="column">
+                                <h4>CLOTHING</h4>
+                                <p onClick={() => handleRedirect('/men/dresses/bandhgalas')}>Bandhgalas</p>
+                                <p onClick={() => handleRedirect('/men/dresses/kurtas-sherwanis')}>Kurtas & Sherwanis</p>
+                                <p onClick={() => handleRedirect('/men/dresses/suits')}>Suits</p>
+                                <p onClick={() => handleRedirect('/men/dresses/indo-westerns')}>IndoWesterns</p>
+                            </div>
+
+                            <div className="column">
+                                <h4>ACCESSORIES</h4>
+                                <p onClick={() => handleRedirect('/men/accessories/ties-bow-ties')}>Ties & Bow Ties</p>
+                                <p onClick={() => handleRedirect('/men/accessories/necklace')}>Necklace</p>
+                            </div>
+
+                            <div className="column">
+                                <h4>OCCASIONS</h4>
+                                <p onClick={() => handleRedirect('/men/occasions/engagement')}>Engagement</p>
+                                <p onClick={() => handleRedirect('/men/occasions/mehendi')}>Mehendi</p>
+                                <p onClick={() => handleRedirect('/men/occasions/haldi')}>Haldi</p>
+                                <p onClick={() => handleRedirect('/men/occasions/sangeet')}>Sangeet</p>
+                                <p onClick={() => handleRedirect('/men/occasions/cocktail')}>Cocktail</p>
+                                <p onClick={() => handleRedirect('/men/occasions/wedding')}>Wedding</p>
+                                <p onClick={() => handleRedirect('/men/occasions/reception')}>Reception</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {/* Icons */}
+                <div className="iconContainer">
+
+                    <i className="fas fa-search icon" onClick={() => handleRedirect('/search')} title="Search"
+                    ></i>
+
+
+                    <i
+                        className="far fa-user icon1"
+                        title="My Account"
+                        onClick={() => {
+                            const auth = getAuth();
+                            const user = auth.currentUser;
+                            if (user) {
+                                navigate("/myaccount");
+                            } else {
+                                navigate("/login");
+                            }
+                        }}
+                    ></i>
+
+
+
+                    <Link to="#" onClick={() => setShowCart(true)} className="cart-icon">
+                        <i className="fas fa-shopping-bag icon" title="Cart"></i>
+                        {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+                    </Link>
+
+
+
+                </div>
+            </div>
+
+            {showSearch && <SearchOverlay onClose={() => setShowSearch(false)} />}
+            {showCart && <CartDrawer onClose={() => setShowCart(false)} />}
+        </>
+    );
+};
+
+export default Header;
+
+

@@ -1,0 +1,31 @@
+.features-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 40px 50px;
+    /* background-color: #efe7e7; */
+    /* border-top: 1px solid #eee; */
+    /* border-bottom: 1px solid #eee; */
+    margin-top: 10rem;
+    /* gap: 0px; */
+}
+
+.feature-box {
+    text-align: center;
+    margin-top: 20px;
+    /* width: 100px; */
+    gap: 0;
+    /* width: 150px; */
+    /* margin: 10px; */
+}
+
+.feature-icon {
+    font-size: 30px;
+    color: #5b5959;
+    /* margin-bottom: 10px; */
+}
+
+.feature-title {
+    font-size: 14px;
+    color: #5b5959;
+}

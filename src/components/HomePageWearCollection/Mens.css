@@ -1,0 +1,66 @@
+.menswear-section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.heading-area h2 {
+    font-size: 2rem;
+    color: rgb(120, 65, 120);
+    /* margin-bottom: 10px; */
+}
+
+.heading-area .quote {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+
+.menswear-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.menswear-card {
+    /* height: 100px; */
+    width: 280px;
+    border-radius: 10px;
+    overflow: hidden;
+    /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
+    transition: transform 2s ease;
+    cursor: pointer;
+}
+
+.menswear-card:hover {
+    /* transform: translateY(-5px); */
+    transform: scale(0.95);
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 360px;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 22px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgb(106, 74, 120);
+    /* background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent); */
+    background-color: rgba(246, 246, 218, 0.866);
+    text-transform: uppercase;
+}

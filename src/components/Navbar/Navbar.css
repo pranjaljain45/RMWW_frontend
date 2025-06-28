@@ -1,0 +1,141 @@
+.navbar {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.973);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Logo section */
+.Websitename {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Websitename h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #603969;
+}
+
+.Websitename h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #555555;
+}
+
+/* Dropdown container */
+.dropdown1 {
+  position: relative;
+  display: inline-block;
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+/* Hover text */
+.dropHead {
+  font-size: 1rem;
+  color: #5d2e72;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+/* Mega menu styling */
+.megamenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 3rem 5rem 5rem 5rem;
+  flex-direction: row;
+  gap: 4rem;
+  z-index: 10;
+  transform: translateX(-40%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.dropdown1:hover .megamenu {
+  display: flex;
+}
+
+/* Menu column layout */
+.againcolumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.againcolumn h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+  color: #5c1d75;
+  text-transform: uppercase;
+}
+
+.againcolumn p {
+  font-size: 1rem;
+  color: #504f4f;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.againcolumn p:hover {
+  color: #63456f;
+  font-weight: 700;
+  /* text-decoration: underline; */
+}
+
+
+
+/* I c o n s */
+.iconContainer1 {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-right: 5vw;
+}
+
+.icon1 {
+  font-size: 20px;
+  cursor: pointer;
+  color: #5d356d;
+  /* transition: color 0.3s; */
+}
+
+.icon1:hover {
+  color: #888;
+  /* transform: scale(1.1); */
+}
+
+.cart-icon {
+  position: relative;
+  font-size: 24px;
+  color: black;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+
+.navbar nav-links {
+  flex-direction: row;
+}

@@ -1,0 +1,101 @@
+.rental-process-wrapper {
+    padding: 0 60px;
+
+}
+
+.slogan-banner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 6rem;
+    /* margin-left: 100px;
+    margin-right: 100px; */
+    margin-left: 10rem;
+    margin-right: 10rem;
+    align-items: center;
+    background-color: #f8f3ee;
+    ;
+    /* soft beige or light cream */
+    padding: 3rem;
+    border-radius: 1rem;
+    /* gap: 2rem; */
+    font-family: 'Poppins', sans-serif;
+    color: #3e3e3e;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.slogan-left {
+    flex: 1;
+    /* min-width: 280px; */
+    margin-left: 3rem;
+}
+
+.slogan-line {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #55326a;
+    /* margin: 0.3rem 0; */
+}
+
+.contact-section {
+    margin-top: 2rem;
+}
+
+.contact-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    color: #4b2d1a;
+}
+
+.contact-section p {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.2rem 0;
+    text-align: left;
+}
+
+.contact-section a {
+    color: #7a4d36;
+    text-decoration: none;
+}
+
+.slogan-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* min-width: 280px; */
+}
+
+.slogan-right img {
+    /* max-width: 100%; */
+    /* height: auto; */
+    width: 70%;
+    /* border-radius: 1rem; */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* Use full width of the container */
+    height: 250px;
+    /* Reduce height */
+    object-fit: cover;
+    /* Stretch horizontally */
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+    .slogan-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .slogan-line {
+        font-size: 1.8rem;
+    }
+
+    .contact-section h2 {
+        font-size: 1.4rem;
+    }
+}
