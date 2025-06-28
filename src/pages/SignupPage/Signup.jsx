@@ -80,7 +80,7 @@ const Signup = () => {
       // console.log("Firebase signup successful");
 
       // 2. Send user data to backend (NO PASSWORD)
-      const response = await axios.post('${import.meta.env.VITE_BACKEND_URL}/api/signup', {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/signup`, {
         uid: user.uid,
         email,
         firstName,
