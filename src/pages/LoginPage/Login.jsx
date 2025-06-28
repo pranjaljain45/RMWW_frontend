@@ -4,6 +4,7 @@ import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import Navbar from '../../components/Navbar/Navbar'
+import Footer from "../../components/Footer/Footer";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -59,7 +60,7 @@ const Login = () => {
       <div className="login-container">
         <h2 className="loginheading">Say “I Do” to Login</h2>
 
-        <form  className="login-form" onSubmit={handleLogin}>
+        <form className="login-form" onSubmit={handleLogin}>
 
           <div className="login-details">
 
@@ -86,6 +87,8 @@ const Login = () => {
           <p><a href="/reset-password">Recover Password</a></p>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
