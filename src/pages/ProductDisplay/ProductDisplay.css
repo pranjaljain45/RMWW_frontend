@@ -266,11 +266,12 @@
 
 /* Responsive Design */
 
-@media (min-width:1000px and max-width: 1190px) {
+@media (min-width: 1000px) and (max-width: 1190px) {
   .product-display {
     margin: 0;
   }
 }
+
 
 @media (max-width: 1000px) {
   .product-display {
