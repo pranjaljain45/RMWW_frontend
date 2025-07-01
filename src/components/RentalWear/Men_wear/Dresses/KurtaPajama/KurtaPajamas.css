@@ -1,4 +1,4 @@
-.cocktail-page {
+.kurtaPajamas-page {
     padding: 40px;
     font-family: 'Segoe UI', sans-serif;
 }
@@ -25,15 +25,15 @@
 
 
 /* Grid layout */
-.cocktail-grid {
+.kurtaPajamas-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
+    gap: 20px;
     justify-content: center;
 }
 
 /* Card container */
-.cocktail-card {
+.kurtaPajamas-card {
     width: 280px;
     cursor: pointer;
     text-align: center;
@@ -41,14 +41,14 @@
     position: relative;
 }
 
-.cocktail-card:hover {
+.kurtaPajamas-card:hover {
     transform: scale(1.02);
 }
 
 /* Product image */
-.product-image {
-    width: 100%;
-    height: auto;
+.kurtaPajamas-grid .product-image {
+    width: 80%;
+    height: 75%;
     border-radius: 6px;
     object-fit: cover;
 }
@@ -84,6 +84,6 @@
     margin-top: 4px;
 }
 
-.cocktail-card:hover .price-hover {
+.kurtaPajamas-card:hover .price-hover {
     opacity: 1;
 }

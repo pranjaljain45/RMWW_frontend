@@ -24,12 +24,13 @@ import MenNecklace from './pages/Men/Accessories/Necklaces';
 
 // Men Dresses
 import Bandhgalas from './pages/Men/Dresses/Bandhgalas';
-import KurtasSherwanis from './pages/Men/Dresses/KurtasSherwanis';
+import KurtaPajamas from './pages/Men/Dresses/KurtaPajamas';
 import Suits from './pages/Men/Dresses/Suits';
 import IndoWesterns from './pages/Men/Dresses/IndoWesterns';
 
 // Men Occasions
 import MenEngagement from './pages/Men/Occasions/Engagement';
+import MenCocktail from './pages/Men/Occasions/Cocktail';
 import MenHaldi from './pages/Men/Occasions/Haldi';
 import MenMehendi from './pages/Men/Occasions/Mehendi';
 import MenReception from './pages/Men/Occasions/Reception';
@@ -117,7 +118,7 @@ const App = () => {
       {/* Men's Routes */}
       {/* Men's Dresses */}
       <Route path="/men/dresses/bandhgalas" element={<Bandhgalas />} />
-      <Route path="/men/dresses/kurtas-sherwanis" element={<KurtasSherwanis />} />
+      <Route path="/men/dresses/KurtaPajamas" element={<KurtaPajamas />} />
       <Route path="/men/dresses/suits" element={<Suits />} />
       <Route path='/men/dresses/indo-westerns' element={<IndoWesterns />} />;
 
@@ -128,6 +129,7 @@ const App = () => {
 
       {/* Men's Occasions */}
       <Route path="/men/occasions/engagement" element={<MenEngagement />} />
+      <Route path="/men/occasions/cocktail" element={<MenCocktail />} />
       <Route path="/men/occasions/haldi" element={<MenHaldi />} />
       <Route path="/men/occasions/mehendi" element={<MenMehendi />} />
       <Route path="/men/occasions/reception" element={<MenReception />} />
