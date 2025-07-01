@@ -10,7 +10,7 @@ import indoWesternImg from '../../assets/HomePageWearCollectionImg/men/indo_west
 
 const categories = [
   { name: "Bandhgalas", image: bandhgalaImg, path: "/men/dresses/bandhgalas" },
-  { name: "Kurtas & Sherwanis", image: kurtaSherwaniImg, path: "/men/dresses/kurtas-sherwanis" },
+  { name: "Kurta Pajamas", image: kurtaSherwaniImg, path: "/men/dresses/KurtaPajamas" },
   { name: "Suits", image: suitImg, path: "/men/dresses/suits" },
   { name: "Indo-Western", image: indoWesternImg, path: "/men/dresses/indo-western" },
 ];

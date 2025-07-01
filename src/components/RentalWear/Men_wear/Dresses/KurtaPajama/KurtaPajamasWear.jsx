@@ -6,7 +6,7 @@ import './KurtaPajamas.css';
 const formatCategory = (str) =>
     str ? str.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : '';
 
-const kurtaPajamas = () => {
+const KurtaPajamasWear = () => {
     const [kurtaPajamaData, setkurtaPajamaData] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const kurtaPajamas = () => {
                 const filtered = res.data.filter(item => item.subcategory === "kurtaPajamas");
                 setkurtaPajamaData(filtered);
             } catch (error) {
-                console.error("Error fetching suits data", error);
+                console.error("Error fetching kurta pajama data", error);
             } finally {
                 setLoading(false);
             }
@@ -59,7 +59,7 @@ const kurtaPajamas = () => {
                         >
                             <img
                                 // src={`${import.meta.env.VITE_BACKEND_URL}/images/${item.imageUrl}`}
-                                src={`http://localhost:5000/images/${item.imageUrl}`}
+                                src={`${import.meta.env.VITE_BACKEND_URL}/images/${item.imageUrl}`}
                                 alt={item.name}
                                 className="product-image"
                             />
@@ -76,6 +76,6 @@ const kurtaPajamas = () => {
     );
 };
 
-export default kurtaPajamas;
+export default KurtaPajamasWear;
 
 
