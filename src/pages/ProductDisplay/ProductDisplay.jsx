@@ -13,7 +13,12 @@ const ProductDisplay = () => {
     const [product, setProduct] = useState(null);
     const [startDate, setStartDate] = useState('');
     const [returnDate, setReturnDate] = useState('');
+    const [isAdded, setIsAdded] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alert, setAlert] = useState({ show: false, message: '', type: 'success' });
     const { cartItems, setCartItems } = useContext(CartContext);
+
+    const today = new Date().toISOString().split('T')[0];
 
 
     useEffect(() => {
@@ -49,9 +54,17 @@ const ProductDisplay = () => {
 
     const handleAddToCart = () => {
         if (!startDate) {
-            alert('Please select a start date before adding to cart.');
+            setAlert({ show: true, message: 'Please select a start date.', type: 'error' });
+            setTimeout(() => setAlert({ ...alert, show: false }), 2000);
             return;
         }
+
+        if (new Date(startDate) < new Date(today)) {
+            setAlert({ show: true, message: 'Start date cannot be in the past.', type: 'warning' });
+            setTimeout(() => setAlert({ ...alert, show: false }), 2000);
+            return;
+        }
+
 
         const cartItem = {
             ...product,
@@ -63,6 +76,12 @@ const ProductDisplay = () => {
         const updatedCart = [...cartItems, cartItem];
         setCartItems(updatedCart);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
+        setIsAdded(true);
+        setAlert({ show: true, message: ' Added to cart!', type: 'success' });
+        setTimeout(() => setAlert({ ...alert, show: false }), 2000);
+
+        setTimeout(() => setShowAlert(false), 2000);
+
         // alert('Item added to cart!');
     };
 
@@ -117,7 +136,12 @@ const ProductDisplay = () => {
                         <div className="date-section">
                             <div className="start-date">
                                 <label>Start Date:</label>
-                                <input type="date" value={startDate} onChange={handleStartDateChange} />
+                                <input
+                                    type="date"
+                                    value={startDate}
+                                    min={today}
+                                    onChange={handleStartDateChange}
+                                />
                             </div>
                             <div className="return-date-wrapper">
                                 <label className="return-label">Return Date:</label>
@@ -126,8 +150,8 @@ const ProductDisplay = () => {
                         </div>
 
                         {/* Add to Cart */}
-                        <button className="add-to-cart" onClick={handleAddToCart}>
-                            Add To CheckOut
+                        <button className="add-to-cart" onClick={handleAddToCart} disabled={isAdded}>
+                            {isAdded ? 'Added' : 'Add To CheckOut'}
                         </button>
 
                         {/* Additional Info */}
@@ -139,6 +163,13 @@ const ProductDisplay = () => {
                     </div>
                 </div>
             </div>
+
+            {alert.show && (
+                <div className={`slide-alert ${alert.type}`}>
+                    {alert.message}
+                </div>
+            )}
+
 
             <Footer />
         </>
