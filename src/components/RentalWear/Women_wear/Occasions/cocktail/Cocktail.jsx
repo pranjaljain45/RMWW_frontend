@@ -38,9 +38,8 @@ const Cocktail = () => {
       {firstItem && (
         <div className="breadcrumb">
           <Link to="/" className="breadcrumb-link">Home</Link>
-          {/* <span className="breadcrumb-separator">/</span> */}
           <Link
-            to={`/${firstItem.gender}/${firstItem.category}/${firstItem.subcategory}s`}
+            to={`/${firstItem.gender}/${firstItem.category}/${firstItem.subcategory}`}
             className="breadcrumb-link"
           >
             {formatCategory(firstItem.subcategory)}

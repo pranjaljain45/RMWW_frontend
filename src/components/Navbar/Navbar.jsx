@@ -48,7 +48,6 @@ const Navbar = () => {
                                 <p onClick={() => handleRedirect('/women/dresses/anarkalis')}>Anarkalis</p>
                                 <p onClick={() => handleRedirect('/women/dresses/sarees-blouses')}>Sarees & Blouses</p>
                                 <p onClick={() => handleRedirect('/women/dresses/indo-western')}>Indo-Western</p>
-                                <p onClick={() => handleRedirect('/women/dresses/western-wear')}>Western Wear</p>
                             </div>
 
                             <div className="againcolumn">
@@ -80,7 +79,7 @@ const Navbar = () => {
                             <div className="againcolumn">
                                 <h4>CLOTHING</h4>
                                 <p onClick={() => handleRedirect('/men/dresses/bandhgalas')}>Bandhgalas</p>
-                                <p onClick={() => handleRedirect('/men/dresses/kurtas-sherwanis')}>Kurtas & Sherwanis</p>
+                                <p onClick={() => handleRedirect('/men/dresses/KurtaPajamas')}>Kurta Pajamas</p>
                                 <p onClick={() => handleRedirect('/men/dresses/indo-westerns')}>IndoWesterns</p>
                                 <p onClick={() => handleRedirect('/men/dresses/suits')}>Suits</p>
                             </div>

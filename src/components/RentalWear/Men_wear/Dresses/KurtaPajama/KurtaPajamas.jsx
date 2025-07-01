@@ -14,8 +14,7 @@ const kurtaPajamas = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/images/wearData/menWear.json`);
-                const res = await axios.get(`http://localhost:5000/images/wearData/menWear.json`);
+                const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/images/wearData/menWear.json`);
                 const filtered = res.data.filter(item => item.subcategory === "kurtaPajamas");
                 setSuitData(filtered);
             } catch (error) {
@@ -59,7 +58,7 @@ const kurtaPajamas = () => {
                             onClick={() => handleCardClick(item)}
                         >
                             <img
-                             // src={`${import.meta.env.VITE_BACKEND_URL}/images/${item.imageUrl}`}
+                                // src={`${import.meta.env.VITE_BACKEND_URL}/images/${item.imageUrl}`}
                                 src={`http://localhost:5000/images/${item.imageUrl}`}
                                 alt={item.name}
                                 className="product-image"

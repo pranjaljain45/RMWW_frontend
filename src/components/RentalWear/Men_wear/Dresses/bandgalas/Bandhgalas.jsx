@@ -37,7 +37,7 @@ const Bandhgalas = () => {
     <div className="bandhgalas-page">
       {firstItem && (
         <div className="breadcrumb">
-          <span className="breadcrumb-separator">/</span>
+          <Link to="/" className="breadcrumb-link">Home</Link>
           <Link
             to={`/${firstItem.gender}/${firstItem.category}/${firstItem.subcategory}s`}
             className="breadcrumb-link"
