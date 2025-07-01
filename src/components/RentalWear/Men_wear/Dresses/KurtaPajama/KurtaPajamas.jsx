@@ -16,7 +16,7 @@ const kurtaPajamas = () => {
             try {
                 const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/images/wearData/menWear.json`);
                 const filtered = res.data.filter(item => item.subcategory === "kurtaPajamas");
-                setSuitData(filtered);
+                setkurtaPajamaData(filtered);
             } catch (error) {
                 console.error("Error fetching suits data", error);
             } finally {

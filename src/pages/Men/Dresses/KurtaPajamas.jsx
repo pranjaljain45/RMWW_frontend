@@ -7,7 +7,7 @@ const KurtaPajamas = () => {
   return (
     <div>
       <Navbar />
-      <KurtaPajamas />
+      <kurtaPajamasWear />
       <Footer />
     </div>
   )
