@@ -33,7 +33,7 @@
 }
 
 /* Card container */
-.suits-card {
+.suit-card {
     width: 280px;
     cursor: pointer;
     text-align: center;
@@ -41,7 +41,7 @@
     position: relative;
 }
 
-.suits-card:hover {
+.suit-card:hover {
     transform: scale(1.02);
 }
 
@@ -84,6 +84,6 @@
     margin-top: 4px;
 }
 
-.suits-card:hover .price-hover {
+.suit-card:hover .price-hover {
     opacity: 1;
 }
