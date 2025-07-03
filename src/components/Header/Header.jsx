@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import img from '../../assets/headerimg.jpg';
 import './Header.css';
 import { useNavigate } from 'react-router-dom';
@@ -15,12 +15,17 @@ const Header = () => {
 
     const [showSearch, setShowSearch] = useState(false);
     const [showCart, setShowCart] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState(null);
+
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 800);
+
 
     const { cartItems } = useContext(CartContext);
     const cartCount = cartItems.length;
 
 
     const navigate = useNavigate();
+
 
     const handleRedirect = (path) => {
         if (path === '/search') setShowSearch(true);
@@ -29,15 +34,41 @@ const Header = () => {
     };
 
 
+    const toggleDropdown = (menuName) => {
+        if (isMobileView) {
+            setOpenDropdown((prev) => (prev === menuName ? null : menuName));
+        }
+    };
+
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobileView(window.innerWidth <= 580);
+            setOpenDropdown(null);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (
+                isMobileView &&
+                !e.target.closest(".dropdown") &&
+                !e.target.closest(".mega-menu")
+            ) {
+                setOpenDropdown(null);
+            }
+        };
+        document.addEventListener("click", handleClickOutside);
+        return () => document.removeEventListener("click", handleClickOutside);
+    }, [isMobileView]);
 
 
     return (
         <>
-
-            {/* Quote */}
-            {/* <div className="quoteLine">
-                <p>Style. Smile. Send Back.</p>
-            </div> */}
 
 
             <div className="headerBanner">
@@ -51,8 +82,6 @@ const Header = () => {
             </div>
 
 
-            {/* <img className="headerContainer" src={img} alt="header" /> */}
-
             <div className="div1">
                 <div className="nameOfWebsite">
                     <h3>RentMy</h3>
@@ -63,10 +92,19 @@ const Header = () => {
                 <div className="categories">
 
                     {/* WOMENWEAR */}
-                    <div className="dropdown">
-                        <span className="dropbtn">WomenWear</span>
 
-                        <div className="mega-menu">
+
+                    <div className="dropdown">
+                        <span
+                            className="dropbtn"
+                            onClick={() => toggleDropdown('women')}
+                        >
+                            WomenWear
+                        </span>
+
+
+                        <div className={`mega-menu ${openDropdown === 'women' ? 'show' : ''}`}>
+
                             <div className="column">
                                 <h4>CLOTHING</h4>
                                 <p onClick={() => handleRedirect('/women/dresses/lehengas')}>Lehengas</p>
@@ -100,9 +138,14 @@ const Header = () => {
 
                     {/* MENWEAR */}
                     <div className="dropdown">
-                        <span className="dropbtn">Menwear</span>
+                        <span
+                            className="dropbtn"
+                            onClick={() => toggleDropdown('men')}
+                        >
+                            Menwear
+                        </span>
+                        <div className={`mega-menu ${openDropdown === 'men' ? 'show' : ''}`}>
 
-                        <div className="mega-menu">
                             <div className="column">
                                 <h4>CLOTHING</h4>
                                 <p onClick={() => handleRedirect('/men/dresses/bandhgalas')}>Bandhgalas</p>

@@ -66,3 +66,11 @@ button {
   margin-top: 10px;
   color: #602e74;
 }
+
+
+
+@media (max-width: 800px) {
+  .login-details {
+    flex-direction: column;
+  }
+}

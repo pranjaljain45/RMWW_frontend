@@ -96,3 +96,124 @@
     color: #6c4c3f;
     margin: 0;
 }
+
+
+
+@media (min-width: 950px) and (max-width: 1200px) {
+
+    .rental-process-wrapper {
+        padding: 0;
+    }
+
+    .rental-process-section {
+        padding: 25px;
+        flex-direction: row;
+    }
+
+    .rental-process-right img {
+        width: 250px;
+        height: 250px;
+        order: 2;
+    }
+
+}
+
+@media (min-width: 780px) and (max-width: 950px) {
+
+    .rental-process-section {
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: center;
+
+    }
+
+    .rental-process-right {
+        order: 1;
+        flex-direction: row;
+        max-width: 100%;
+    }
+
+    .rental-process-right img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .rental-process-left {
+        min-width: 500px;
+        margin-top: 2.5rem;
+        order: 2;
+    }
+}
+
+@media (min-width: 580px) and (max-width: 780px) {
+
+    .rental-process-section {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 60px;
+        justify-content: center;
+    }
+
+    .rental-process-left {
+        min-width: 300px;
+        order: 2;
+    }
+
+    .rental-process-right img {
+        display: none;
+    }
+
+    .rental-process-right {
+        order: 1;
+        margin-bottom: 1rem;
+    }
+
+    .rental-process-text {
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .rental-process-text h2 {
+        font-size: 30px;
+    }
+
+}
+
+
+
+@media (max-width: 580px) {
+    .rental-process-wrapper {
+        padding: 0 30px;
+        margin: 2rem;
+    }
+
+    .rental-process-section {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 25px;
+        margin-top: 30px;
+        flex-direction: column;
+    }
+
+    .rental-process-left {
+        min-width: 250px;
+        order: 2;
+    }
+
+    .rental-process-right img {
+        display: none;
+    }
+
+    .rental-process-right {
+        order: 1;
+    }
+
+    .rental-process-right {
+        min-width: 0;
+    }
+
+    .rental-process-text h2 {
+        font-size: 35px;
+    }
+
+}

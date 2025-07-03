@@ -55,7 +55,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: white;
+  background-color: #f3f2f0d4;
   padding: 3rem 5rem 5rem 5rem;
   flex-direction: row;
   gap: 4rem;
@@ -93,7 +93,6 @@
 .againcolumn p:hover {
   color: #63456f;
   font-weight: 700;
-  /* text-decoration: underline; */
 }
 
 
@@ -110,12 +109,10 @@
   font-size: 20px;
   cursor: pointer;
   color: #5d356d;
-  /* transition: color 0.3s; */
 }
 
 .icon1:hover {
   color: #888;
-  /* transform: scale(1.1); */
 }
 
 .cart-icon {
@@ -136,6 +133,125 @@
 }
 
 
-.navbar nav-links {
+.navbar .nav-links {
   flex-direction: row;
+}
+
+@media (min-width: 580px) and (max-width: 780px) {
+  .navbar {
+    padding-top: 1.5rem;
+    gap: 2rem;
+  }
+
+  .Websitename h2 {
+    font-size: 22px;
+    padding-left: 0;
+  }
+
+  .Websitename h3 {
+    font-size: 17px;
+    padding-left: 0;
+  }
+
+  .div1 .categories {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .dropdown1 {
+    margin-right: 0;
+  }
+
+  .navbar .nav-links {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .iconContainer1 {
+    padding-right: 0;
+    gap: 20px;
+  }
+
+  .icon,
+  .icon1 {
+    font-size: 21px;
+  }
+
+
+  .dropdown1:hover .megamenu {
+    padding: 3rem;
+    gap: 2rem;
+    display: flex;
+  }
+}
+
+
+@media (min-width: 550px) and (max-width: 580px) {
+  .navbar .nav-links {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+}
+
+
+@media (max-width: 550px) {
+
+  .navbar .nav-links {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}
+
+
+@media (min-width: 350px) and (max-width: 580px) {
+  .navbar {
+    gap: 2rem;
+    padding: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+
+  .Websitename h2 {
+    font-size: 20px;
+  }
+
+  .Websitename h3 {
+    font-size: 15px;
+  }
+
+
+  .dropdown1 {
+    margin-right: 0rem;
+
+  }
+
+  .iconContainer1 {
+    gap: 15px;
+  }
+
+  .dropHead {
+    font-size: 1rem;
+  }
+
+  .icon,
+  .icon1 {
+    font-size: 17px;
+  }
+
+  .dropdown1:hover .megamenu {
+    padding: 3rem;
+    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+
 }

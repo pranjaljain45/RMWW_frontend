@@ -1,24 +1,14 @@
-.rental-process-wrapper {
-    padding: 0 60px;
-
-}
-
 .slogan-banner {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 6rem;
-    /* margin-left: 100px;
-    margin-right: 100px; */
     margin-left: 10rem;
     margin-right: 10rem;
     align-items: center;
     background-color: #f8f3ee;
-    ;
-    /* soft beige or light cream */
     padding: 3rem;
     border-radius: 1rem;
-    /* gap: 2rem; */
     font-family: 'Poppins', sans-serif;
     color: #3e3e3e;
     border-radius: 10px;
@@ -27,7 +17,6 @@
 
 .slogan-left {
     flex: 1;
-    /* min-width: 280px; */
     margin-left: 3rem;
 }
 
@@ -35,7 +24,6 @@
     font-size: 2.2rem;
     font-weight: 600;
     color: #55326a;
-    /* margin: 0.3rem 0; */
 }
 
 .contact-section {
@@ -65,37 +53,80 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* min-width: 280px; */
 }
 
 .slogan-right img {
-    /* max-width: 100%; */
-    /* height: auto; */
     width: 70%;
-    /* border-radius: 1rem; */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    /* Use full width of the container */
     height: 250px;
-    /* Reduce height */
     object-fit: cover;
-    /* Stretch horizontally */
-    border-radius: 1rem;
+    border-radius: 0.6rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile view */
-@media (max-width: 768px) {
+
+@media (min-width: 950px) and (max-width: 1115px) {
     .slogan-banner {
-        flex-direction: column;
-        text-align: center;
+        margin-left: 6rem;
+        margin-right: 6rem;
+        padding: 3.5rem;
+    }
+
+}
+
+@media (min-width: 780px) and (max-width: 950px) {
+
+    .slogan-banner {
+        margin-left: 4rem;
+        margin-right: 4rem;
+        padding: 2rem;
+        gap: 2rem;
+    }
+
+    .slogan-left {
+        margin-left: 0;
     }
 
     .slogan-line {
         font-size: 1.8rem;
     }
 
-    .contact-section h2 {
-        font-size: 1.4rem;
+}
+
+@media (min-width: 580px) and (max-width: 780px) {
+    .slogan-banner {
+        margin-left: 3rem;
+        margin-right: 3rem;
+        padding: 2rem;
+        gap: 2rem;
     }
+
+    .slogan-left {
+        margin-left: 0;
+    }
+
+    .slogan-line {
+        font-size: 1.8rem;
+    }
+}
+
+
+
+@media (min-width: 350px) and (max-width: 580px) {
+    .slogan-banner {
+        margin-left: 3rem;
+        margin-right: 3rem;
+        padding: 2rem;
+        gap: 2rem;
+    }
+
+    .slogan-left {
+        margin-left: 0;
+    }
+
+    .slogan-line {
+        font-size: 1.5rem;
+    }
+
 }

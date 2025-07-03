@@ -1,4 +1,3 @@
-/* Navbar */
 .navbar-order-page {
     position: relative;
     background: url('../../assets/OrderSummaryImg.png') no-repeat center center/cover;
@@ -149,22 +148,17 @@
 
 .delivery-box input {
     flex: 0;
-    /* margin-left: auto; */
     margin-right: auto;
 }
 
 .delivery-box .name-fields {
     display: flex;
-    /* margin-left: auto; */
-    width: fit-content;
     gap: 8px;
 }
 
 .delivery-box .name-fields input {
-    width: 250px;
     margin-right: 0.1rem;
     margin-left: 0;
-    /* flex: 0; */
 }
 
 .delivery-box .city-section {
@@ -173,72 +167,9 @@
 
 .delivery-box .city-section select,
 .delivery-box .city-section input {
-    width: 130px;
     flex: 0;
     margin-right: 0.5rem;
     margin-left: 0;
-}
-
-/*billing address*/
-
-.billing-address {
-    margin-top: 2rem;
-}
-
-.billing-address h3 {
-    margin-bottom: 1rem;
-    color: rgb(128, 128, 128);
-}
-
-.billing-address label {
-    margin-left: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #333;
-}
-
-.billing-address label input {
-    margin-right: 0;
-}
-
-.billing-address form {
-    margin-top: 0;
-}
-
-.billing-address input {
-    flex: 0;
-    /* margin-left: auto; */
-    margin-right: auto;
-}
-
-.billing-address .name-fields {
-    display: flex;
-    /* margin-left: auto; */
-    width: fit-content;
-    gap: 8px;
-}
-
-.billing-address .name-fields input {
-    width: 250px;
-    margin-right: 0.1rem;
-    margin-left: 0;
-    /* flex: 0; */
-}
-
-.billing-address .city-section {
-    display: flex;
-    justify-content: start;
-    align-items: flex-start;
-}
-
-.billing-address .city-section select,
-.billing-address .city-section input {
-    width: 130px;
-    flex: 0;
-    margin-right: 0.5rem;
-    margin-left: 0;
-
 }
 
 
@@ -255,25 +186,6 @@
     width: 70%;
 }
 
-/* .left-section h2 {
-    margin-bottom: 1rem;
-}
-
-
-.two-columns,
-.three-columns {
-    display: flex;
-    gap: 1rem;
-}
-
-.two-columns input,
-.three-columns input,
-.three-columns select {
-    flex: 1;
-} */
-
-
-
 
 /* Layout */
 .order-container {
@@ -282,13 +194,6 @@
     padding: 2rem;
     font-family: 'Poppins', sans-serif;
 }
-
-
-
-
-
-/* Right Summary */
-
 
 
 .cart-summary img {
@@ -318,8 +223,6 @@
 .discount-box input {
     padding: 0.5rem;
 }
-
-
 
 .summary-prices p {
     display: flex;
@@ -439,4 +342,187 @@
     font-weight: bold;
     cursor: pointer;
     cursor: pointer;
+}
+
+.orderDetails input {
+    margin: 0;
+}
+
+
+
+@media (min-width: 1200px) {
+    .order-summary-container {
+        margin: 0 5rem;
+        padding: 9rem;
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+    }
+
+    .delivery-box .name-fields input {
+        width: 70rem;
+    }
+
+    .delivery-box .city-section select,
+    .delivery-box .city-section input {
+        width: 30rem;
+    }
+
+
+    .cart-summary .item p {
+        text-align: left;
+    }
+
+    .cart-summary .item,
+    .cart-summary {
+        margin-bottom: 0;
+    }
+
+    .cart-summary .item img {
+        margin-right: 10px;
+    }
+
+    .cart-summary .item div {
+        padding-left: 0;
+    }
+
+    .totals {
+        padding-top: 0;
+    }
+
+    .discount {
+        gap: 3rem;
+    }
+
+    .totals input[type="text"] {
+        width: 250px;
+        flex: 0;
+        margin: 0;
+    }
+
+    .totals h3 {
+        gap: 2rem;
+    }
+}
+
+
+
+@media (min-width: 750px) and (max-width: 1200px) {
+
+    .order-summary-container {
+        padding: 4rem
+    }
+
+    .delivery-box .name-fields {
+        flex-direction: column;
+        margin-right: 0;
+    }
+
+    .city-section {
+        flex-direction: column;
+        width: 80%;
+    }
+
+    .cart-summary .item p {
+        text-align: left;
+    }
+
+    .cart-summary .item,
+    .cart-summary {
+        margin-bottom: 0;
+    }
+
+    .cart-summary .item img {
+        margin-right: 10px;
+    }
+
+    .cart-summary .item div {
+        padding-left: 0;
+    }
+
+    .totals {
+        padding-top: 0;
+    }
+
+    .discount {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .totals input[type="text"] {
+        width: 200px;
+        flex: 0;
+        margin: 0;
+    }
+
+    .totals h3 {
+        justify-content: center;
+        gap: 2rem;
+    }
+
+}
+
+@media (max-width: 750px) {
+    .order-summary-container {
+        padding: 2rem;
+        flex-direction: column;
+        gap: 3rem;
+        justify-content: center;
+    }
+
+    .orderDetails,
+    .name-fields,
+    .city-section {
+        flex-direction: column;
+    }
+
+
+    .left-section form input,
+    .left-section form select,
+    .delivery-box .city-section select,
+    .delivery-box .city-section input {
+        width: 100%;
+    }
+
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        padding-right: 4rem;
+        padding-left: 4rem;
+    }
+
+    .right-section {
+        width: 100%;
+    }
+
+    .cart-summary {
+        margin-bottom: 0;
+    }
+
+    .cart-summary .item img {
+        margin-right: 10px;
+    }
+
+    .cart-summary .item p {
+        text-align: left;
+    }
+
+    .discount {
+        flex-direction: column;
+    }
+
+    .totals input[type="text"] {
+        width: 200px;
+        margin: 0;
+        flex: 0;
+    }
+
+    .totals h3 {
+        margin: 1rem;
+    }
+
+    .totals {
+        padding-top: 0;
+    }
 }
