@@ -1,11 +1,3 @@
-.headerContainer {
-    width: 100%;
-    height: auto;
-    position: relative;
-    z-index: 1;
-    filter: brightness(0.75);
-}
-
 .headerBanner {
     position: relative;
     width: 100%;
@@ -52,7 +44,7 @@
     left: 0;
     z-index: 10;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,6 +80,9 @@
     margin-top: 1rem;
 }
 
+
+
+
 .dropdown {
     display: inline-block;
     position: relative;
@@ -107,19 +102,25 @@
     position: absolute;
     background-color: white;
     color: black;
+    z-index: 1000;
     padding: 3rem 5rem 4rem 5rem;
-    z-index: 3;
-    top: 100%;
-    left: 0;
     transform: translateX(-40%);
     flex-direction: row;
     gap: 4rem;
+    transition: all 0.2s ease;
 }
 
-.mega-menu.show {
-    display: flex
+.mega-menu.show.clicked {
+    display: flex;
 }
 
+
+.nameOfWebsite h2 {
+    margin-top: 0;
+}
+
+
+/* === Columns inside Mega Menu === */
 
 .column {
     display: flex;
@@ -132,21 +133,24 @@
     font-size: 1.2rem;
     margin-bottom: 0.6rem;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .column p {
     margin: 0;
-    margin-bottom: 0.4rem;
     font-size: 1rem;
     cursor: pointer;
     transition: color 0.2s ease;
     color: #444;
+    text-align: center;
 }
 
 .column p:hover {
     color: hsl(300, 19%, 39%);
     font-weight: 700;
 }
+
+/* === Icons === */
 
 .iconContainer {
     display: flex;
@@ -155,13 +159,15 @@
     padding-right: 6vw;
 }
 
-.icon {
+.icon,
+.icon1 {
     font-size: 24px;
     cursor: pointer;
     color: rgba(85, 38, 105, 0.834);
 }
 
-.icon:hover {
+.icon:hover,
+.icon1:hover {
     transform: scale(1.1);
 }
 
@@ -182,14 +188,9 @@
     border-radius: 50%;
 }
 
+/* === Responsive Design === */
 
-@media (min-width:1000px) {
-    .dropdown:hover .mega-menu {
-        display: flex;
-    }
-}
-
-@media (min-width:1076px) and (max-width:1270px) {
+@media (min-width: 1076px) and (max-width: 1270px) {
     .centeredQuote {
         top: 83%;
     }
@@ -197,13 +198,10 @@
     .brandName {
         font-size: 1.8rem;
     }
-
 }
 
 @media (min-width: 780px) and (max-width: 1076px) {
-    .headerBanner {
-        height: auto;
-    }
+
 
     .backgroundImage {
         width: 90%;
@@ -219,32 +217,67 @@
     }
 }
 
-@media (min-width: 580px) and (max-width: 780px) {
-    .headerBanner {
-        height: auto;
+@media (min-width: 1000px) {
+    .dropdown:hover .mega-menu {
+        display: flex;
     }
 
-    .div1 {
+
+}
+
+@media (max-width: 999px) {
+    .mega-menu {
+        display: none;
+    }
+
+    .mega-menu.show.clicked {
+        display: flex;
+    }
+
+    .dropdown:hover .mega-menu {
+        display: none;
+    }
+}
+
+
+@media (min-width: 700px) and (max-width: 900px) {
+    .backgroundImage {
+        width: 95%;
+        padding-left: 2rem;
+        margin-top: 8rem;
+    }
+
+    .centeredQuote {
+        top: 85%;
+        padding: 1rem 1.5rem;
+    }
+
+    .brandName {
+        font-size: 1.5rem;
+    }
+
+    .centeredQuote .tagline {
+        font-size: 1.2rem;
+    }
+}
+
+
+
+@media (min-width: 560px) and (max-width: 700px) {
+
+    .categories {
+        display: flex;
+        flex-direction: row;
         gap: 2rem;
     }
 
-    .nameOfWebsite h2 {
-        font-size: 22px;
-    }
 
-    .nameOfWebsite h3 {
-        font-size: 17px;
-    }
-
-    .div1 .categories {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-        justify-content: center;
+    .dropdown {
+        margin-right: 0;
     }
 
     .dropbtn {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .iconContainer {
@@ -255,40 +288,26 @@
     .backgroundImage {
         width: 95%;
         padding-left: 2rem;
+        margin-top: 8rem;
     }
 
     .centeredQuote {
-        top: 83%;
+        top: 85%;
         padding: 1rem 1.5rem;
     }
 
     .brandName {
         font-size: 1.5rem;
     }
-}
 
-@media (min-width: 550px) and (max-width: 580px) {
-    .div1 .categories {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 1rem;
+    .centeredQuote .tagline {
+        font-size: 1.2rem;
     }
 
-
-    .centeredQuote {
-        top: 85%;
-    }
 }
 
+@media (max-width: 560px) {
 
-@media (min-width: 550px) {
-    .dropdown {
-        margin-right: 0;
-    }
-}
-
-@media (max-width: 550px) {
     .div1 .categories {
         text-align: center;
         display: flex;
@@ -297,15 +316,13 @@
 }
 
 @media (max-width: 580px) {
-    .headerBanner {
-        height: auto;
-    }
-
     .div1 {
         gap: 1rem;
         padding: 1rem;
-        padding-left: 0.5rem;
+        padding-left: 1rem;
+        justify-content: space-around;
     }
+
 
     .backgroundImage {
         margin-top: 8rem;
@@ -345,44 +362,19 @@
         font-size: 17px;
     }
 
-
     .column p {
         margin-bottom: 0;
     }
 
-
     .dropdown {
         margin-right: 0;
     }
-}
-
-
-@media (min-width: 300px) {
-    .dropdown:hover .mega-menu {
-        display: none;
-    }
 
     .mega-menu {
-        position: absolute;
         width: 100vw;
-        height: 100vh;
         flex-direction: column;
-        z-index: 1000;
-        display: none;
-        gap: 2rem;
+        padding: 2rem;
+        max-height: 100vh;
+        overflow-y: auto;
     }
-
-    .mega-menu.show {
-        display: flex;
-    }
-
-
-    .column h4 {
-        font-size: 1rem;
-        margin-bottom: 0;
-        text-align: center;
-    }
-
-
-
 }
