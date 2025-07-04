@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 40px;
+  padding: 10px 4rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
@@ -21,14 +21,14 @@
 
 .Websitename h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   color: #603969;
 }
 
 .Websitename h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: 18px;
   color: #555555;
 }
 
@@ -42,11 +42,12 @@
 
 /* Hover text */
 .dropHead {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #5d2e72;
   font-weight: 600;
   text-transform: uppercase;
   font-weight: bolder;
+  cursor: pointer;
 }
 
 /* Mega menu styling */
@@ -55,7 +56,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #f3f2f0d4;
+  background-color: #fffffff7;
   padding: 3rem 5rem 5rem 5rem;
   flex-direction: row;
   gap: 4rem;
@@ -65,9 +66,11 @@
 }
 
 
-.dropdown1:hover .megamenu {
+.megamenu.show.clicked {
   display: flex;
 }
+
+
 
 /* Menu column layout */
 .againcolumn {
@@ -137,38 +140,54 @@
   flex-direction: row;
 }
 
-@media (min-width: 580px) and (max-width: 780px) {
+
+
+
+
+
+@media (max-width: 560px) {
+
+  .navbar .nav-links {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+@media (min-width: 900px) and (max-width: 1110px) {
+
+  .dropdown1:hover .megamenu {
+    display: flex;
+  }
+
+}
+
+
+
+@media (min-width: 570px) and (max-width: 900px) {
+
   .navbar {
-    padding-top: 1.5rem;
-    gap: 2rem;
+    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .Websitename h2,
+  .Websitename h3 {
+    padding-left: 0;
   }
 
   .Websitename h2 {
-    font-size: 22px;
-    padding-left: 0;
+    font-size: 1.5rem;
   }
 
   .Websitename h3 {
-    font-size: 17px;
-    padding-left: 0;
-  }
-
-  .div1 .categories {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: center;
+    font-size: 1rem;
   }
 
   .dropdown1 {
     margin-right: 0;
-  }
-
-  .navbar .nav-links {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: center;
   }
 
   .iconContainer1 {
@@ -176,55 +195,24 @@
     gap: 20px;
   }
 
-  .icon,
-  .icon1 {
-    font-size: 21px;
-  }
 
-
-  .dropdown1:hover .megamenu {
-    padding: 3rem;
-    gap: 2rem;
-    display: flex;
-  }
-}
-
-
-@media (min-width: 550px) and (max-width: 580px) {
-  .navbar .nav-links {
+  .nav-links {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: 2rem;
   }
 
 }
 
 
-@media (max-width: 550px) {
-
-  .navbar .nav-links {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-}
 
 
-@media (min-width: 350px) and (max-width: 580px) {
+@media (max-width: 570px) {
+
   .navbar {
     gap: 2rem;
     padding: 1.5rem;
     padding-bottom: 1rem;
-  }
-
-
-  .Websitename h2 {
-    font-size: 20px;
-  }
-
-  .Websitename h3 {
-    font-size: 15px;
   }
 
 
@@ -237,6 +225,28 @@
     gap: 15px;
   }
 
+
+  .navbar {
+    gap: 1rem;
+    padding: 1rem;
+    padding-left: 1rem;
+    justify-content: space-around;
+  }
+
+  .iconContainer1 {
+    gap: 15px;
+  }
+
+  .Websitename h2 {
+    font-size: 20px;
+    padding-left: 0;
+  }
+
+  .Websitename h3 {
+    padding-left: 0;
+    font-size: 15px;
+  }
+
   .dropHead {
     font-size: 1rem;
   }
@@ -246,12 +256,21 @@
     font-size: 17px;
   }
 
-  .dropdown1:hover .megamenu {
-    padding: 3rem;
-    gap: 3rem;
-    display: flex;
-    flex-direction: column;
+  .againcolumn p {
+    margin: 1px;
+    margin-bottom: 0;
   }
 
+  .dropdown1 {
+    margin-right: 0;
+  }
 
+  .megamenu {
+    width: 100vw;
+    flex-direction: column;
+    padding: 2rem;
+    max-height: 100vh;
+    overflow-y: auto;
+    gap: 2rem;
+  }
 }

@@ -81,7 +81,7 @@ const Header = () => {
 
                 {/* Categories */}
                 <div className="categories">
-                    {/* WomenWear */}
+
                     <div className="dropdown" ref={dropdownRef}>
                         <span className="dropbtn" onClick={() => toggleDropdown('women')}>
                             WomenWear

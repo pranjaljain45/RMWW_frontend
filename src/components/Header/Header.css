@@ -81,8 +81,6 @@
 }
 
 
-
-
 .dropdown {
     display: inline-block;
     position: relative;
@@ -200,113 +198,9 @@
     }
 }
 
-@media (min-width: 780px) and (max-width: 1076px) {
 
 
-    .backgroundImage {
-        width: 90%;
-        padding-left: 4rem;
-    }
-
-    .centeredQuote {
-        top: 83%;
-    }
-
-    .brandName {
-        font-size: 1.5rem;
-    }
-}
-
-@media (min-width: 1000px) {
-    .dropdown:hover .mega-menu {
-        display: flex;
-    }
-
-
-}
-
-@media (max-width: 999px) {
-    .mega-menu {
-        display: none;
-    }
-
-    .mega-menu.show.clicked {
-        display: flex;
-    }
-
-    .dropdown:hover .mega-menu {
-        display: none;
-    }
-}
-
-
-@media (min-width: 700px) and (max-width: 900px) {
-    .backgroundImage {
-        width: 95%;
-        padding-left: 2rem;
-        margin-top: 8rem;
-    }
-
-    .centeredQuote {
-        top: 85%;
-        padding: 1rem 1.5rem;
-    }
-
-    .brandName {
-        font-size: 1.5rem;
-    }
-
-    .centeredQuote .tagline {
-        font-size: 1.2rem;
-    }
-}
-
-
-
-@media (min-width: 560px) and (max-width: 700px) {
-
-    .categories {
-        display: flex;
-        flex-direction: row;
-        gap: 2rem;
-    }
-
-
-    .dropdown {
-        margin-right: 0;
-    }
-
-    .dropbtn {
-        font-size: 1.2rem;
-    }
-
-    .iconContainer {
-        padding-right: 0;
-        gap: 20px;
-    }
-
-    .backgroundImage {
-        width: 95%;
-        padding-left: 2rem;
-        margin-top: 8rem;
-    }
-
-    .centeredQuote {
-        top: 85%;
-        padding: 1rem 1.5rem;
-    }
-
-    .brandName {
-        font-size: 1.5rem;
-    }
-
-    .centeredQuote .tagline {
-        font-size: 1.2rem;
-    }
-
-}
-
-@media (max-width: 560px) {
+@media (max-width: 570px) {
 
     .div1 .categories {
         text-align: center;
@@ -315,7 +209,103 @@
     }
 }
 
-@media (max-width: 580px) {
+
+@media (min-width: 900px) and (max-width: 1110px) {
+
+    .dropdown:hover .mega-menu {
+        display: flex;
+    }
+
+    .backgroundImage {
+        width: 90%;
+        padding-left: 4rem;
+    }
+
+    .centeredQuote {
+        top: 75%;
+    }
+
+    .brandName {
+        font-size: 1.5rem;
+    }
+
+
+}
+
+
+
+@media (min-width: 570px) and (max-width: 900px) {
+
+    .div1 {
+        padding: 1rem;
+    }
+
+    .nameOfWebsite h2,
+    .nameOfWebsite h3 {
+        padding-left: 0;
+    }
+
+    .nameOfWebsite h2 {
+        font-size: 1.5rem;
+    }
+
+    .nameOfWebsite h3 {
+        font-size: 1rem;
+    }
+
+    .dropdown {
+        margin-right: 0;
+    }
+
+    .dropbtn {
+        font-size: 1.4rem;
+    }
+
+    .iconContainer {
+        padding-right: 0;
+        gap: 20px;
+    }
+
+
+    .headerBanner {
+        height: auto;
+    }
+
+    .backgroundImage {
+        width: 95%;
+        padding-left: 2rem;
+        margin-top: 8rem;
+    }
+
+    .centeredQuote {
+        top: 85%;
+        padding: 1rem 1.5rem;
+    }
+
+    .brandName {
+        font-size: 1.5rem;
+    }
+
+    .centeredQuote .tagline {
+        font-size: 1.2rem;
+    }
+
+
+    .categories {
+        display: flex;
+        flex-direction: row;
+        gap: 1.2rem;
+    }
+
+
+
+}
+
+@media (max-width: 570px) {
+    .headerBanner {
+        height: auto;
+    }
+
     .div1 {
         gap: 1rem;
         padding: 1rem;
@@ -347,9 +337,11 @@
 
     .nameOfWebsite h2 {
         font-size: 20px;
+        padding-left: 0;
     }
 
     .nameOfWebsite h3 {
+        padding-left: 0;
         font-size: 15px;
     }
 
@@ -376,5 +368,6 @@
         padding: 2rem;
         max-height: 100vh;
         overflow-y: auto;
+        gap: 2rem;
     }
 }
