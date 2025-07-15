@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../../../components/Navbar/Navbar';
-import IndoWesternsWear from '../../../components/RentalWear/Men_wear/dresses/indo_western/IndoWesterns';
+import IndoWesternsWear from '../../../components/RentalWear/Men_wear/Dresses/indo_western/IndoWesterns';
 import Footer from '../../../components/Footer/Footer';
 
 const IndoWesterns = () => {

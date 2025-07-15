@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../../../components/Navbar/Navbar';
-import KurtaPajamasWear from '../../../components/RentalWear/Men_wear/dresses/KurtaPajama/KurtaPajamasWear';
+import KurtaPajamasWear from '../../../components/RentalWear/Men_wear/Dresses/KurtaPajama/KurtaPajamasWear';
 import Footer from '../../../components/Footer/Footer';
 
 const KurtaPajamas = () => {
