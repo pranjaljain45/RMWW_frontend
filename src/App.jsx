@@ -48,10 +48,10 @@ import WomenRings from './pages/Women/Accessories/Rings';
 
 // Women clothing
 import WomenLehengas from './pages/Women/Clothing/Lehengas';
-import WomenGowns from './pages/Women/clothing/Gowns';
+import WomenGowns from './pages/Women/Clothing/Gowns';
 import WomenSareesBlouses from './pages/Women/Clothing/SareesBlouses';
-import WomenIndoWestern from './pages/Women/clothing/IndoWestern';
-import WomenAnarkali from './pages/Women/clothing/Anarkalis';
+import WomenIndoWestern from './pages/Women/Clothing/IndoWestern';
+import WomenAnarkali from './pages/Women/Clothing/Anarkalis';
 
 
 // Women Occasions
