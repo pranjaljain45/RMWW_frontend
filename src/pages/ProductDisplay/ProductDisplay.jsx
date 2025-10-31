@@ -150,7 +150,8 @@ const ProductDisplay = () => {
                         </div>
 
                         {/* Add to Cart */}
-                        <button className="add-to-cart" onClick={handleAddToCart} disabled={isAdded}>
+                        <button className="add-to-cart px-12 py-3 bg-[#602e74] text-white text-lg rounded-md border-none cursor-pointer 
+                        hover:bg-[#7d3fa4] transition-colors duration-300" onClick={handleAddToCart} disabled={isAdded}>
                             {isAdded ? 'Added' : 'Add To CheckOut'}
                         </button>
 

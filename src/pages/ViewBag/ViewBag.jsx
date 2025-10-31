@@ -29,7 +29,7 @@ const ViewBag = () => {
     <>
       <Navbar />
       <div className="viewbag-container">
-        <h1>Your Shopping Cart</h1>
+        <h1 className='px-15'>Your Shopping Cart</h1>
 
         {cartItems.length === 0 ? (
           <p className="empty-cart">Your bag is empty. Go shop something beautiful!</p>

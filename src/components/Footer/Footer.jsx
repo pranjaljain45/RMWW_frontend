@@ -15,11 +15,10 @@ const Footer = () => {
     <footer className="footer">
       {/* About Us Section */}
 
-
       <div className="about-section">
         <h2>ABOUT WedsWardrobe</h2>
         <p>
-         WedsWardrobe IS YOUR ONE-STOP DESTINATION FOR PREMIUM WEDDING AND OCCASION WEAR ON RENT. WE BELIEVE THAT EVERYONE DESERVES TO SHINE ON THEIR SPECIAL DAY WITHOUT THE BURDEN OF HIGH COSTS OR WARDROBE CLUTTER.
+          WedsWardrobe IS YOUR ONE-STOP DESTINATION FOR PREMIUM WEDDING AND OCCASION WEAR ON RENT. WE BELIEVE THAT EVERYONE DESERVES TO SHINE ON THEIR SPECIAL DAY WITHOUT THE BURDEN OF HIGH COSTS OR WARDROBE CLUTTER.
         </p>
         <p>
           OUR CAREFULLY CURATED COLLECTION FEATURES A WIDE RANGE OF ELEGANT, TRENDY, AND HIGH-QUALITY OUTFITS FOR BRIDES, GROOMS, AND GUESTS ALIKE. WHETHER YOU'RE ATTENDING A WEDDING, ENGAGEMENT, OR FESTIVE CELEBRATION — WE MAKE DESIGNER FASHION ACCESSIBLE, EFFORTLESS, AND AFFORDABLE.
@@ -33,22 +32,21 @@ const Footer = () => {
       </div>
 
 
-
       <div className="footer-columns">
 
         {/* Our Company */}
         <div className="footer-column">
           <h3>OUR COMPANY</h3>
-          <p onClick={() => handleRedirect('/profile')}>OUR PROFILE</p>
-          <p onClick={() => handleRedirect('/terms')}>TERMS AND CONDITIONS</p>
-          <p onClick={() => handleRedirect('/contact')}>CONTACT US</p>
+          <p onClick={() => handleRedirect('/OurProfile')}>OUR PROFILE</p>
+          <p onClick={() => handleRedirect('/TnC')}>TERMS AND CONDITIONS</p>
+          <p onClick={() => handleRedirect('/ContactUs')}>CONTACT US</p>
         </div>
 
         {/* Customer Care */}
         <div className="footer-column">
           <h3>CUSTOMER CARE</h3>
-          <p onClick={() => handleRedirect('/faqs')}>FAQs</p>
-          <p onClick={() => handleRedirect('/privacy-policy')}>PRIVACY POLICY</p>
+          <p onClick={() => handleRedirect('/Faqs')}>FAQs</p>
+          <p onClick={() => handleRedirect('/PrivacyPolicies')}>PRIVACY POLICY</p>
         </div>
 
         {/* Contact Us */}

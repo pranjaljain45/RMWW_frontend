@@ -17,6 +17,14 @@ import Orders from './pages/UserDashboard/Orders';
 import ViewBag from './pages/ViewBag/ViewBag';
 import OrderSummary from './pages/OrderSummary/OrderSummary';
 
+
+{/* footer import */}
+import ContactUs from './pages/FooterLinks/ContactUs'
+import OurProfile from './pages/FooterLinks/OurProfile'
+import Faqs from './pages/FooterLinks/Faqs'
+import TnC from './pages/FooterLinks/TnC'
+import PrivacyPolicies from './pages/FooterLinks/PrivacyPolicies'
+
 // Men
 // Men Accessories
 import MenTiesBowTies from './pages/Men/Accessories/TiesBowTies';
@@ -65,17 +73,9 @@ import WomenWedding from './pages/Women/WomenOccasions/Wedding';
 
 
 //authentication
-import LoginPage from './pages/LoginPage/Login';
-import SignupPage from './pages/SignupPage/Signup';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import ResetPassword from './pages/ResetPassword';
-
-
-//about us section
-import CompanyProfile from './pages/FooterSection/CompanyProfile/CompanyProfile';
-import ContactUs from './pages/FooterSection/ContactUs/Contactus';
-import Faqs from './pages/FooterSection/Faqs/Faqs';
-import PrivacyPolicies from './pages/FooterSection/PrivacyPolicies/PrivacyPolicies';
-import TermsAndConditions from './pages/FooterSection/TermsAndConditions/TermsAndConditions';
 
 
 
@@ -102,16 +102,16 @@ const App = () => {
 
 
       {/* footer link */}
-      <Route path='/companyprofile' element={<CompanyProfile />} />
-      <Route path='/contactus' element={<ContactUs />} />
-      <Route path='/faqs' element={<Faqs />} />
+      <Route path='/OurProfile' element={<OurProfile />} />
+      <Route path='/ContactUs' element={<ContactUs />} />
+      <Route path='/Faqs' element={<Faqs />} />
       <Route path='/privacypolicies' element={<PrivacyPolicies />} />
-      <Route path='/termsandconditions' element={<TermsAndConditions />} />
+      <Route path='/TnC' element={<TnC />} />
 
 
       {/* Auth Routes */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path='/signup' element={<SignupPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path='/signup' element={<Signup />} />
       <Route path='/resetpassword' element={<ResetPassword />} />
 
 

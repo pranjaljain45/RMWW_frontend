@@ -31,7 +31,7 @@ const CartDrawer = ({ onClose }) => {
 
         {/* <div className="cart-drawer"> */}
         <div className="cart-header">
-          <h2>
+          <h2 className='text-xl px-5'>
             {cartItems.length > 0
               ? `${cartItems.length} ITEM${cartItems.length > 1 ? 'S' : ''} IN YOUR BAG`
               : 'Your Shopping Cart'}
@@ -42,8 +42,8 @@ const CartDrawer = ({ onClose }) => {
         {cartItems.length === 0 ? (
           <>
             <p className='no-items'>No items?! Even your bag’s starting to feel lonely.</p>
-            <p className="sub-desc">Let’s give it some company!</p>
-            <button className="continue-btn" onClick={handleContinueShopping}>
+            <p className="sub-desc px-15">Let’s give it some company!</p>
+            <button className="continue-btn px-12 py-3 bg-[#602e74] text-white text-lg rounded-md border-none cursor-pointer hover:bg-[#7d3fa4] transition-colors duration-300" onClick={handleContinueShopping}>
               Continue Shopping
             </button>
           </>
@@ -85,7 +85,7 @@ const CartDrawer = ({ onClose }) => {
                 ))}
               </div>
 
-              <button className="view-btn" onClick={() => {
+              <button className="view-btn px-10 py-3 bg-[#602e74] text-white text-lg rounded-md border-none cursor-pointer hover:bg-[#7d3fa4] transition-colors duration-300" onClick={() => {
                 onClose(); // Close drawer
                 navigate('/viewbag'); // Navigate to ViewBag
               }}>VIEW BAG</button>
