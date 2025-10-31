@@ -40,11 +40,15 @@ const OrderSummary = () => {
 
         <div className="navbar-content">
 
-          <div className="site-title">
+          {/* <div className="site-title">
             <h3>RentMy</h3>
             <h2>Wedding</h2>
             <h3>Wear</h3>
-          </div>
+          </div> */}
+
+           <div className="text-[25px] font-['Times_New_Roman',_Times,_serif] font-bold text-[#603969]">
+                    WedsWardrobe
+           </div>
 
           <div className="navbar-right">
             <span className="user-email">{userEmail}</span>
@@ -144,3 +148,4 @@ const OrderSummary = () => {
 };
 
 export default OrderSummary;
+
