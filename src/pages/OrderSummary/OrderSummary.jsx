@@ -46,7 +46,7 @@ const OrderSummary = () => {
             <h3>Wear</h3>
           </div> */}
 
-           <div className="text-[25px] font-['Times_New_Roman',_Times,_serif] font-bold text-[#603969]">
+           <div className="text-[25px] font-['Times_New_Roman',_Times,_serif] font-bold text-white">
                     WedsWardrobe
            </div>
 
@@ -148,4 +148,5 @@ const OrderSummary = () => {
 };
 
 export default OrderSummary;
+
 
