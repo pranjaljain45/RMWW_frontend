@@ -65,7 +65,7 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert('Changes saved successfully!');
-      } catch {
+      } catch (err) {
         alert(err.response?.data?.message || 'Failed to save changes');
       } finally {
         setSaving(false);
@@ -104,11 +104,13 @@ const Profile = () => {
             <label className="mb-1 text-gray-700">Phone Number</label>
             <input
               type="text"
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
+              name="phoneNumber"
+              value={form.phoneNumber}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, '');
+                setForm(prev => ({ ...prev, phoneNumber: value }));
+              }}
               maxLength={10}
-              required                       // <--- make it required
               className="border-b border-gray-300 py-2 focus:outline-none"
             />
           </div>

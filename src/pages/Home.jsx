@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../components/Header/Header';
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
-import Features from '../components/Features/Features';
-import Women from '../components/HomePageWearCollection/Women';
-import Men from '../components/HomePageWearCollection/Mens';
-import RentalProcess from '../components/RentalProcess/RentalProcess';
-import Banner from '../components/Banner/Banner';
+import React, { useEffect, useState } from 'react'
+import Navbar from '../components/Navbar'
+import Header from '../components/HomePage/Header'
+import Features from '../components/HomePage/Features'
+import WomenWear from '../components/HomePage/WomensWear'
+import MenWear from '../components/HomePage/MensWear'
+import RentalProcess from '../components/HomePage/RentalProcess'
+import RentalBanner from '../components/HomePage/Banner'
+import Footer from '../components/Footer'
 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -19,19 +19,20 @@ const Home = () => {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
   return (
-    <>
+    <div>
+
       {scrolled && <Navbar />}
       <Header />
       <Features />
-      <Women />
-      <Men />
+      <WomenWear />
+      <MenWear />
       <RentalProcess />
-      <Banner />
+      <RentalBanner />
       <Footer />
-    </>
-  );
-};
 
-export default Home;
+    </div>
+  )
+}
+
+export default Home

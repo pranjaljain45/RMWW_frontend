@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/firebaseConfig';
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -85,9 +85,8 @@ const Signup = () => {
     <>
       <Navbar />
 
-
       <div className="text-center px-4 py-12 md:py-16">
-        <h2 className="text-3xl font-semibold mt-10 mb-6">Signup time!</h2>
+        <h2 className="text-3xl font-semibold mt-10 mb-6">Signup!</h2>
 
         {error && <p className="error-message">{error}</p>}
 
@@ -156,7 +155,6 @@ const Signup = () => {
         </form >
 
       </div >
-
 
       <Footer />
     </>

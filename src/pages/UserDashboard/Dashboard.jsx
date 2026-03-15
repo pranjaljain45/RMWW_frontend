@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 import axios from 'axios';
 import { NavLink, Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Footer from '../../components/Footer/Footer';
-import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer';
+import Navbar from '../../components/Navbar';
 
 const Dashboard = () => {
 

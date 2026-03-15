@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Navbar from '../../components/Navbar/Navbar';
-import Footer from '../../components/Footer/Footer';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 const faqs = [
     {
@@ -11,8 +11,8 @@ const faqs = [
     {
         question: "How do I cancel my order? Will I get a refund?",
         answer: `Yes, but a flat ₹500 cancellation charge will apply to all cancellations.\n
-• Cancel >7 days before delivery: 100% rental refund (after ₹500 deduction)\n
-• Cancel 3–7 days before delivery: 50% rental refund (after ₹500 deduction)\n
+• Cancel >5 days before delivery: 100% rental refund (after ₹700 deduction)\n
+• Cancel 3–5 days before delivery: 50% rental refund (after ₹500 deduction)\n
 • Cancel <3 days before delivery: No refund\n
 Your security deposit is always fully refundable.`
     },

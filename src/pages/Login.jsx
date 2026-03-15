@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import Navbar from '../components/Navbar/Navbar';
-import Footer from "../components/Footer/Footer";
+import Navbar from '../components/Navbar';
+import Footer from "../components/Footer";
 
 const Login = () => {
 
@@ -52,7 +52,7 @@ const Login = () => {
       <Navbar />
 
       <div className="text-center px-4 py-12 md:py-16">
-        <h2 className="text-3xl font-semibold mt-10 mb-6">Say “I Do” to Login</h2>
+        <h2 className="text-3xl font-semibold mt-10 mb-6">Signin!</h2>
 
         <form onSubmit={handleLogin} className="flex flex-col items-center w-[90%] sm:max-w-90 m-auto mt-14 gap-4 text-gray-500">
 
