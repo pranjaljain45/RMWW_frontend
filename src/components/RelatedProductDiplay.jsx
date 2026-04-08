@@ -200,7 +200,7 @@ const RelatedProductDisplay = () => {
                                     id="eventDate"
                                     className="border-b border-gray-400  w-60 focus:outline-none"
                                    // min={new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
-                                    value={eventDate || existingCartItem?.eventDate || ''}
+                                    value={eventDate}
                                     onChange={(e) => setEventDate(e.target.value)}
                                 />
 
@@ -236,22 +236,17 @@ const RelatedProductDisplay = () => {
                                 </select>
                             </div>
 
-
-                            {/* Expected Delivery Window */}
                             {eventDate && (
                                 <p className="text-gray-700 mt-1 text-mb mb-0">
                                     <b>Expected delivery: {deliveryWindow}</b>
                                 </p>
                             )}
 
-                            {/* Return Date Display */}
                             {returnDate && (
                                 <p className="text-gray-700 mt-1 text-mb mb-0">
-                                    <b> Return Date: {returnDate.split("-").reverse().join("-")}</b>
+                                    <b> Return Date: {returnDate}</b>
                                 </p>
                             )}
-
-                            {/* Expected Pickup Window */}
                             {pickupWindow && (
                                 <p className="text-gray-700 mt-1 text-mb mb-0">
                                     <b>Expected pickup: {pickupWindow}</b>
@@ -259,8 +254,6 @@ const RelatedProductDisplay = () => {
                             )}
 
                         </div>
-
-
 
                         {/* Add to Cart */}
                         <button
