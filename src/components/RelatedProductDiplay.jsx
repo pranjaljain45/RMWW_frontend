@@ -47,7 +47,7 @@ const RelatedProductDisplay = () => {
             //  Calculate return date (based on rentalDuration) 
             const ret = new Date(event);
             ret.setDate(ret.getDate() + rentalDuration - 1);
-            setReturnDate((`${formatDate(ret)}`);
+            setReturnDate((`${formatDate(ret)}`));
 
             // Pickup  day AFTER return date 
             const pickupEnd = new Date(ret);
