@@ -273,7 +273,7 @@ const ProductDisplay = () => {
                                     }}
                                     className="border border-gray-400 py-2 w-40 rounded-md focus:outline-none"
                                 >
-                                    <option value={3}>2 Days</option>
+                                    <option value={2}>2 Days</option>
                                     <option value={3}>3 Days</option>
                                     <option value={5}>5 Days</option>
                                     <option value={7}>7 Days</option>
@@ -421,7 +421,7 @@ const ProductDisplay = () => {
                                     }}
                                     className="border border-gray-400 py-2 w-40 rounded-md focus:outline-none"
                                 >
-                                    <option value={3}>2 Days</option>
+                                    <option value={2}>2 Days</option>
                                     <option value={3}>3 Days</option>
                                     <option value={5}>5 Days</option>
                                     <option value={7}>7 Days</option>
