@@ -8,6 +8,14 @@ import RelatedProduct from './RelatedProducts';
 const formatCategory = (str) =>
     str ? str.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : '';
 
+const formatDate = (date) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+};
+
 const RelatedProductDisplay = () => {
     const location = useLocation();
     const [product, setProduct] = useState(null);
@@ -15,9 +23,8 @@ const RelatedProductDisplay = () => {
     const [isAdded, setIsAdded] = useState(false);
     const [alert, setAlert] = useState({ show: false, message: '', type: 'success' });
     const { cartItems, setCartItems } = useContext(CartContext);
-    const today = new Date().toISOString().split('T')[0];
-
-
+    const today = formatDate(new Date());
+    
     const [eventDate, setEventDate] = useState("");
     const [deliveryWindow, setDeliveryWindow] = useState("");
     const [returnDate, setReturnDate] = useState("");
@@ -35,21 +42,12 @@ const RelatedProductDisplay = () => {
             const endDelivery = new Date(event);
             endDelivery.setDate(event.getDate() - 1);
 
-            // format DD-MM-YYYY
-            const formatDate = (date) => {
-                const d = new Date(date);
-                const day = String(d.getDate()).padStart(2, "0");
-                const month = String(d.getMonth() + 1).padStart(2, "0");
-                const year = d.getFullYear();
-                return `${day}-${month}-${year}`;
-            };
-
             setDeliveryWindow(` ${formatDate(endDelivery)}`);
 
             //  Calculate return date (based on rentalDuration) 
             const ret = new Date(event);
             ret.setDate(ret.getDate() + rentalDuration - 1);
-            setReturnDate(ret.toISOString().split("T")[0]);
+            setReturnDate((`${formatDate(ret)}`);
 
             // Pickup  day AFTER return date 
             const pickupEnd = new Date(ret);
@@ -100,7 +98,6 @@ const RelatedProductDisplay = () => {
             }
         }
     }, [gender, category, subcategory, id, location.state]);
-
 
 
     useEffect(() => {
@@ -184,7 +181,7 @@ const RelatedProductDisplay = () => {
                         <div>
                             <p className="text-gray-800 font-semibold text-xl">{product.ownerName}</p>
                             <h1 className="text-xl font-semibold text-gray-900 mt-1">{product.name}</h1>
-                            <p className="text-md font-bold text-gray-900 mt-1">Rent: ₹{product.price}</p>
+                            <p className="text-md font-bold text-gray-900 mt-1">Rent: Rs.{product.price}</p>
                             {/* <p className="text-md text-gray-600">Refundable Deposit: ₹{product.price - 700}</p> */}
                         </div>
 
@@ -202,8 +199,8 @@ const RelatedProductDisplay = () => {
                                     type="date"
                                     id="eventDate"
                                     className="border-b border-gray-400  w-60 focus:outline-none"
-                                    min={new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
-                                    value={eventDate}
+                                   // min={new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
+                                    value={eventDate || existingCartItem?.eventDate || ''}
                                     onChange={(e) => setEventDate(e.target.value)}
                                 />
 
@@ -227,11 +224,12 @@ const RelatedProductDisplay = () => {
                                         if (eventDate) {
                                             const returnD = new Date(eventDate);
                                             returnD.setDate(returnD.getDate() + val - 1);
-                                            setReturnDate(returnD.toISOString().split("T")[0]);
+                                            setReturnDate(` ${formatDate(returnD)}`);
                                         }
                                     }}
                                     className="border border-gray-400 py-2 w-40 rounded-md focus:outline-none"
                                 >
+                                    <option value={2}>2 Days</option>
                                     <option value={3}>3 Days</option>
                                     <option value={5}>5 Days</option>
                                     <option value={7}>7 Days</option>
@@ -302,6 +300,7 @@ const RelatedProductDisplay = () => {
             )}
 
 
+             {/* mobile view */}
             <div className='flex flex-col lg:hidden '>
 
                 <div className="flex flex-col justify-items-center p-15 pt-5 pb-0 bg-white font-sans my-8 mb-0 sm:flex-row sm:gap-5">
@@ -332,8 +331,8 @@ const RelatedProductDisplay = () => {
                         <div>
                             <p className="text-gray-800">{product.ownerName}</p>
                             <h1 className="text-md font-semibold text-gray-900 mt-1">{product.name}</h1>
-                            <p className="text-sm mt-2 text-gray-900">Rent: ₹{product.price}</p>
-                            {/* <p className="text-sm text-gray-600">Refundable Deposit: ₹{product.price - 500}</p> */}
+                            <p className="text-sm mt-2 text-gray-900">Rent: Rs.{product.price}</p>
+                            <p className="text-sm text-gray-600">Refundable Deposit: Rs.{product.price - 500}</p> 
                         </div>
 
 
@@ -357,7 +356,7 @@ const RelatedProductDisplay = () => {
                                 onChange={(e) => setEventDate(e.target.value)}
                             />
                             <p className="text-sm text-gray-700 mt-3 italic">
-                                📦 Please book at least <b>5 days before your event</b>. We deliver within this period.
+                                Please book at least <b>5 days before your event</b>. We deliver within this period.
                             </p>
 
                             {/* Delivery Duration Dropdown */}
@@ -373,11 +372,12 @@ const RelatedProductDisplay = () => {
                                         if (eventDate) {
                                             const returnD = new Date(eventDate);
                                             returnD.setDate(returnD.getDate() + val - 1);
-                                            setReturnDate(returnD.toISOString().split("T")[0]);
+                                            setReturnDate(`${formatDate(returnD)}`);
                                         }
                                     }}
                                     className="border border-gray-400 py-2 w-40 rounded-md focus:outline-none"
                                 >
+                                    <option value={2}>2 Days</option>
                                     <option value={3}>3 Days</option>
                                     <option value={5}>5 Days</option>
                                     <option value={7}>7 Days</option>
@@ -393,7 +393,7 @@ const RelatedProductDisplay = () => {
                             {/* Return Date  Display */}
                             {returnDate && (
                                 <p className="text-gray-700 mt-2 text-sm font-semibold">
-                                    Return Date: {returnDate.split("-").reverse().join("-")}
+                                    Return Date: {returnDate}
                                 </p>
                             )}
 
