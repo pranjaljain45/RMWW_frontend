@@ -8,20 +8,28 @@ import RelatedProduct from '../components/RelatedProducts';
 const formatCategory = (str) =>
     str ? str.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : '';
 
+const formatDate = (date) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+};
+
+
 const ProductDisplay = () => {
     const location = useLocation();
     const [product, setProduct] = useState(null);
     const [imageURL, setImageURL] = useState('');
     const [alert, setAlert] = useState({ show: false, message: '', type: 'success' });
     const { cartItems, setCartItems } = useContext(CartContext);
-    const today = new Date().toISOString().split('T')[0]; //date in yyyy-mm-dd
-
+     const today = formatDate(new Date());
 
     const [eventDate, setEventDate] = useState("");
     const [deliveryWindow, setDeliveryWindow] = useState("");
     const [returnDate, setReturnDate] = useState("");
     const [pickupWindow, setPickupWindow] = useState("");
-    const [rentalDuration, setRentalDuration] = useState(3);
+    const [rentalDuration, setRentalDuration] = useState(2);
 
     const [isAdded, setIsAdded] = useState(false);
     const [existingCartItem, setExistingCartItem] = useState(null); // store the cart item if exists
@@ -90,15 +98,6 @@ const ProductDisplay = () => {
 
         const event = new Date(eventDate);
 
-        // format DD-MM-YYYY
-        const formatDate = (date) => {
-            const d = new Date(date);
-            const day = String(d.getDate()).padStart(2, "0");
-            const month = String(d.getMonth() + 1).padStart(2, "0");
-            const year = d.getFullYear();
-            return `${day}-${month}-${year}`;
-        };
-
         // Delivery ends: before event  day
         const endDelivery = new Date(event);
         endDelivery.setDate(event.getDate() - 1);
@@ -107,16 +106,15 @@ const ProductDisplay = () => {
         //  Calculate return date (based on rentalDuration) 
         const ret = new Date(event);
         ret.setDate(ret.getDate() + rentalDuration - 1);
-        setReturnDate(ret.toISOString().split("T")[0]);
+        setReturnDate(`${formatDate(ret)}`);
 
         // Pickup  day AFTER return date 
         const pickupEnd = new Date(ret);
         pickupEnd.setDate(ret.getDate() + 2);
-        setPickupWindow(pickupEnd.toISOString().split("T")[0]);
-
+        setPickupWindow(`${formatDate(pickupEnd)}`);
         if (existingCartItem) {
             if (existingCartItem.eventDate === eventDate && existingCartItem.rentalDuration === rentalDuration) {
-                setIsAdded(true);
+                setIsAdded(true); //disable added to checkout
             } else {
                 setIsAdded(false); // enable button
             }
@@ -213,7 +211,6 @@ const ProductDisplay = () => {
                         <nav className="text-gray-600 text-sm flex space-x-2">
                             <Link to="/" className="hover:text-gray-900 font-medium">Home</Link>
                             <span>/</span>
-
                             <Link to={`/${product.gender}/${product.category}/${product.subcategory}`}
                                 className="hover:text-gray-900 font-medium" >
                                 {formatCategory(product.subcategory)}
@@ -224,8 +221,8 @@ const ProductDisplay = () => {
                         <div>
                             <p className="text-gray-800 font-semibold text-xl">{product.ownerName}</p>
                             <h1 className="text-xl font-semibold text-gray-900 mt-1">{product.name}</h1>
-                            <p className="text-md font-bold text-gray-900 mt-1">Rent: ₹{product.price}</p>
-                            <p className="text-md text-gray-600">Refundable Deposit: ₹{product.price - 700}</p>
+                            <p className="text-md font-bold text-gray-900 mt-1">Rent: Rs.{product.price}</p>
+                            <p className="text-md text-gray-600">Refundable Deposit: Rs.{product.price - 700}</p>
                         </div>
 
 
@@ -247,7 +244,7 @@ const ProductDisplay = () => {
                                 />
 
                                 <p className="text-sm text-gray-700 mt-3 italic">
-                                    📦 Please book at least <b>5 days before your event</b>. We deliver within this period.
+                                    Please book at least <b>5 days before your event</b>. We deliver within this period.
                                 </p>
 
                             </div>
@@ -261,17 +258,6 @@ const ProductDisplay = () => {
                                     onChange={(e) => {
                                         const val = parseInt(e.target.value);
                                         setRentalDuration(val); // update the rental duration
-
-                                        // Recalculate return date and pickup window if eventDate is set
-                                        if (eventDate) {
-                                            const ret = new Date(eventDate);
-                                            ret.setDate(ret.getDate() + val - 1);
-                                            setReturnDate(ret.toISOString().split("T")[0]);
-
-                                            const pickupEnd = new Date(ret);
-                                            pickupEnd.setDate(ret.getDate() + 2);
-                                            setPickupWindow(pickupEnd.toISOString().split("T")[0]);
-                                        }
 
                                         // Enable Add to Cart button if user changes duration
                                         if (existingCartItem) {
@@ -287,37 +273,30 @@ const ProductDisplay = () => {
                                     }}
                                     className="border border-gray-400 py-2 w-40 rounded-md focus:outline-none"
                                 >
+                                    <option value={3}>2 Days</option>
                                     <option value={3}>3 Days</option>
                                     <option value={5}>5 Days</option>
                                     <option value={7}>7 Days</option>
                                 </select>
                             </div>
 
-
-                            {/* Expected Delivery Window */}
                             {eventDate && (
                                 <p className="text-gray-700 mt-1 text-mb mb-0">
                                     <b>Expected delivery: {deliveryWindow}</b>
                                 </p>
                             )}
-
-                            {/* Return Date Display */}
                             {returnDate && (
-                                <p className="text-gray-700 mt-1 text-mb mb-0">
-                                    <b> Return Date: {returnDate.split("-").reverse().join("-")}</b>
+                                <p className="text-gray-700 text-mb mb-0">
+                                    <b> Return Date: {(returnDate)}</b>
                                 </p>
                             )}
-
-                            {/* Expected Pickup Window */}
                             {pickupWindow && (
-                                <p className="text-gray-700 mt-1 text-mb mb-0">
-                                    <b>Expected pickup: {pickupWindow.split("-").reverse().join("-")}</b>
+                                <p className="text-gray-700 text-mb mb-0">
+                                    <b>Expected pickup: {(pickupWindow)}</b>
                                 </p>
                             )}
 
                         </div>
-
-
 
                         {/* Add to Cart */}
                         <button
@@ -392,8 +371,8 @@ const ProductDisplay = () => {
                         <div>
                             <p className="text-gray-800">{product.ownerName}</p>
                             <h1 className="text-md font-semibold text-gray-900 mt-1">{product.name}</h1>
-                            <p className="text-sm mt-2 text-gray-900">Rent: ₹{product.price}</p>
-                            <p className="text-sm text-gray-600">Refundable Deposit: ₹{product.price - 500}</p>
+                            <p className="text-sm mt-2 text-gray-900">Rent: Rs.{product.price}</p>
+                            <p className="text-sm text-gray-600">Refundable Deposit: Rs.{product.price - 500}</p>
                         </div>
 
 
@@ -417,7 +396,7 @@ const ProductDisplay = () => {
                                 onChange={(e) => setEventDate(e.target.value)}
                             />
                             <p className="text-sm text-gray-700 mt-3 italic">
-                                📦 Please book at least <b>5 days before your event</b>. We deliver within this period.
+                                Please book at least <b>5 days before your event</b>. We deliver within this period.
                             </p>
 
                             {/* Delivery Duration Dropdown */}
@@ -428,18 +407,6 @@ const ProductDisplay = () => {
                                     onChange={(e) => {
                                         const val = parseInt(e.target.value);
                                         setRentalDuration(val);
-
-                                        // Calculate return date if event date is already selected
-                                        if (eventDate) {
-                                            const ret = new Date(eventDate);
-                                            ret.setDate(ret.getDate() + val - 1);
-                                            setReturnDate(ret.toISOString().split("T")[0]);
-
-                                            const pickupEnd = new Date(ret);
-                                            pickupEnd.setDate(ret.getDate() + 2);
-                                            setPickupWindow(pickupEnd.toISOString().split("T")[0]);
-                                        }
-
 
                                         if (existingCartItem) {
                                             if (
@@ -454,6 +421,7 @@ const ProductDisplay = () => {
                                     }}
                                     className="border border-gray-400 py-2 w-40 rounded-md focus:outline-none"
                                 >
+                                    <option value={3}>2 Days</option>
                                     <option value={3}>3 Days</option>
                                     <option value={5}>5 Days</option>
                                     <option value={7}>7 Days</option>
@@ -466,19 +434,15 @@ const ProductDisplay = () => {
                                 </p>
                             )}
 
-                            {/* Return Date  Display */}
-                            {returnDate && (
-                                <p className="text-gray-700 mt-2 text-sm font-semibold">
-                                    Return Date: {returnDate.split("-").reverse().join("-")}
+                           {returnDate && (
+                                <p className="text-gray-700 text-sm font-semibold">
+                                    Return Date: {returnDate}
                                 </p>
                             )}
 
-
-                            {/* pickup date */}
-
-                            {pickupWindow && (
-                                <p className="text-gray-700 mt-2 text-sm font-semibold">
-                                    Expected pickup: {pickupWindow.split("-").reverse().join("-")}
+                             {pickupWindow && (
+                                <p className="text-gray-700 text-sm font-semibold">
+                                    Expected pickup: {pickupWindow}
                                 </p>
                             )}
                         </div>
@@ -491,7 +455,6 @@ const ProductDisplay = () => {
                         >
                             {isAdded ? 'Added' : 'Add To CheckOut'}
                         </button>
-
 
                     </div>
 
