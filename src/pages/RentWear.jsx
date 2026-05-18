@@ -15,28 +15,28 @@ const RentWear = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchJsonData = async () => {
+        const fetchProducts = async () => {
             try {
-                const path = `${import.meta.env.VITE_BACKEND_URL}/api/products/${gender}/${category}/${subcategory}`;
-                const response = await fetch(path);
-                if (!response.ok) throw new Error('File not found');
-                const data = await response.json();
+                const url = `${import.meta.env.VITE_BACKEND_URL}/api/products/${gender}/${category}/${subcategory}`;
+                const res = await fetch(url);
+                if (!res.ok) throw new Error('Failed to fetch products');
+                const data = await res.json();
                 setProducts(data);
                 setError('');
             } catch (err) {
                 console.error(err);
-                setError('Unable to load product data');
+                setError('Unable to load products');
                 setProducts([]);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchJsonData();
+        fetchProducts();
     }, [gender, category, subcategory]);
 
     const handleCardClick = (item) => {
-        navigate('/productdisplay', { state: { product: item } });
+        navigate(`/product/${item._id}`);
     };
 
     const firstItem = products[0];
@@ -54,7 +54,7 @@ const RentWear = () => {
                         <Link to="/" className="font-medium hover:underline">Home</Link>
                         {' / '}
                         <Link
-                            to={`/product/${gender}/${category}/${subcategory}`}
+                            to={`/${gender}/${category}/${subcategory}`}
                             className="font-medium hover:underline"
                         >
                             {formatCategory(subcategory)}
@@ -68,23 +68,22 @@ const RentWear = () => {
                     <p>Loading...</p>
                 ) : (
                     <div className="flex flex-wrap justify-center gap-9">
-                        {products.map((item, idx) => (
+                        {products.map((item) => (
                             <div
-                                key={idx}
+                                key={item._id}
                                 onClick={() => handleCardClick(item)}
-                                className="w-72 cursor-pointer text-center transition-transform transform hover:scale-104 group"
+                                className="w-72 cursor-pointer text-center transition-transform transform hover:scale-105 group"
                             >
 
                                 <div className='mt-2'>
                                     <img
-                                        src={`${import.meta.env.VITE_BACKEND_URL}/images/${gender}/${category}/${subcategory}/${item.imageUrl}`}
+                                        src={item.imageUrl}
                                         alt={item.name}
                                         className="h-4/5 mx-auto rounded-md object-cover"
                                     />
 
 
                                     <h2 className="text-lg text-gray-800 mb-1">{item.name}</h2>
-                                    <p className="text-gray-600 text-base underline mb-1">{item.ownerName}</p>
                                     <p className="text-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300"> Rs.{item.price}</p>
                                 </div>
 
@@ -103,4 +102,3 @@ const RentWear = () => {
 };
 
 export default RentWear;
-

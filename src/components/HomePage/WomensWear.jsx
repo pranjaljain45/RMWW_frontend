@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import lehengaImg from '../../assets/HomePageWearCollectionImg/women/lehenga.jpg';
-import gownImg from '../../assets/HomePageWearCollectionImg/women/gown.jpg';
-import sareeImg from '../../assets/HomePageWearCollectionImg/women/saree.jpg';
-import indoWesternImg from '../../assets/HomePageWearCollectionImg/women/indo_western.jpg';
+import lehengaImg from '../../assets/women/lehenga.jpg';
+import gownImg from '../../assets/women/gown.jpg';
+import sareeImg from '../../assets/women/saree.jpg';
+import indoWesternImg from '../../assets/women/indoWestern.jpg';
 
 const categories = [
-    { name: 'gowns', image: gownImg, path: '/women/clothing/gowns' },
-    { name: 'lehengas', image: lehengaImg, path: '/women/clothing/lehengas' },
-    { name: 'sarees', image: sareeImg, path: '/women/clothing/sarees' },
-    { name: 'Indo-Western', image: indoWesternImg, path: '/women/clothing/indowesterns' },
+    { name: 'Gowns', image: gownImg, path: '/women/clothing/gown' },
+    { name: 'Lehengas', image: lehengaImg, path: '/women/clothing/lehenga' },
+    { name: 'Sarees', image: sareeImg, path: '/women/clothing/saree' },
+    { name: 'IndoWestern', image: indoWesternImg, path: '/women/clothing/indowestern' },
 ];
 
-const WomenwearCollection = () => {
+const WomensWear = () => {
     return (
         <section className="py-10 px-5 text-center">
             <div className="mb-8">
@@ -39,4 +39,4 @@ const WomenwearCollection = () => {
     );
 };
 
-export default WomenwearCollection;
+export default WomensWear;

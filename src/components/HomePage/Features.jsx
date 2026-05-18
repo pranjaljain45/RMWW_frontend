@@ -22,11 +22,6 @@ const Features = () => {
                 <div key={index} className=" flex flex-col items-center text-center ">
                     <div className="text-xl xl:text-3xl text-gray-600">{feature.icon}</div>
                     <div className="text-sm xl:text-xl text-gray-600">{feature.title}</div>
-                    {feature.subtext && (
-                        <div className="text-gray-500 text-sm max-w-[150px] break-words">
-                            {feature.subtext}
-                        </div>
-                    )}
                 </div>
             ))
             }

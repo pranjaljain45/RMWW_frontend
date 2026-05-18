@@ -1,185 +1,255 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const OrderSummary = () => {
-  const [orders, setOrders] = useState([]);
-  const auth = getAuth();
-  const navigate = useNavigate();
-  const base = import.meta.env.VITE_BACKEND_URL;
+    const [order, setOrder] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const auth = getAuth();
 
-  const getProductJsonPath = (item) =>
-    `${base}/api/products/${item.gender}/${item.category}/${item.subcategory}`;
+    useEffect(() => {
+        // Fetch the current order from database
+        const fetchOrder = async () => {
+            try {
+                const user = auth.currentUser;
 
+                if (!user) {
+                    setLoading(false);
+                    return;
+                }
 
-  const fetchProductData = async (item) => {
-    try {
-      const path = getProductJsonPath(item);
-      const res = await fetch(path);
-      const products = await res.json();
-      return products.find((p) => p.imageUrl === item.imageUrl) || item;
-    } catch (err) {
-      console.error("Failed to fetch product JSON:", err);
-      return item;
-    }
-  };
+                const uid = user.uid;
+                const res = await fetch(
+                    `${import.meta.env.VITE_BACKEND_URL}/api/orders/curr-order/${uid}`
+                );
+                const data = await res.json();
 
+                if (data.success && data.order) {
+                    setOrder(data.order);
+                }
+            } catch (error) {
+                console.error('Failed to fetch order:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const uid = user.uid;
-        try {
-          const res = await fetch(`${base}/api/orders/curr-order/${uid}`);
-          const data = await res.json();
-          if (data.success) {
-            setOrders(data.order);
-          }
-        } catch (error) {
-          console.error("Failed to fetch orders:", error);
-        }
-      }
-    });
-    return () => unsubscribe();
-  }, [auth, base]);
-
-
-  useEffect(() => {
-
-    const loadProductData = async () => {
-      const updatedOrders = await Promise.all(
-        orders.map(async (order) => {
-          const items = await Promise.all(
-            order.items.map(async (item) => {
-              const productData = await fetchProductData(item);
-              return { ...item, productData };
-            })
-          );
-          return { ...order, items };
-        })
-      );
-      setOrders(updatedOrders);
-    };
-
-    if (
-      orders.length > 0 && orders[0].items && orders[0].items.length > 0 && !orders[0].items[0].productData
-    ) {
-      loadProductData();
-    }
-  }, [orders]);
-
-  const calculateDates = (eventDate, rentalDuration) => {
-    if (!eventDate) return {};
-
-    const event = new Date(eventDate);
+        fetchOrder();
+    }, [auth]);
 
     const formatDate = (date) => {
-      const d = new Date(date);
-      const day = String(d.getDate()).padStart(2, "0");
-      const month = String(d.getMonth() + 1).padStart(2, "0");
-      const year = d.getFullYear();
-      return `${day}-${month}-${year}`;
+        if (!date) return 'N/A';
+        const d = new Date(date);
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        return `${day}-${month}-${year}`;
     };
 
-    // delivery = event - 1
-    const delivery = new Date(event);
-    delivery.setDate(event.getDate() - 1);
+    const calculateDates = (eventDate, rentalDuration) => {
+        if (!eventDate) return {};
 
-    // return = event + duration -1
-    const ret = new Date(event);
-    ret.setDate(event.getDate() + rentalDuration - 1);
+        const event = new Date(eventDate);
 
-    // pickup = return + 1
-    const pickup = new Date(ret);
-    pickup.setDate(ret.getDate() + 2);
+        // delivery = event - 1
+        const delivery = new Date(event);
+        delivery.setDate(event.getDate() - 1);
 
-    return {
-      delivery: formatDate(delivery),
-      pickup: formatDate(pickup)
+        // return = event + duration - 1
+        const ret = new Date(event);
+        ret.setDate(event.getDate() + rentalDuration - 1);
+
+        // pickup = return + 2
+        const pickup = new Date(ret);
+        pickup.setDate(ret.getDate() + 2);
+
+        return {
+            delivery: formatDate(delivery),
+            returnDate: formatDate(ret),
+            pickup: formatDate(pickup),
+        };
     };
-  };
 
-  return (
-    <>
-      <Navbar />
-
-      <h2 className="text-center text-2xl font-semibold mt-12 mb-5">
-        ORDER SUMMARY
-      </h2>
-
-      <div className="mx-10 max-w-3xl mt-10 space-y-6 lg:mx-auto">
-        {orders.map((order) =>
-          order.items.map((item) => {
-            const product = item.productData || item;
-            const { delivery, pickup } = calculateDates(
-              item.rentalStartDate,
-              item.rentalDuration || 3
-            );
-
-            return (
-              <div key={item._id} className="flex gap-6 border-b pb-4">
-                <img
-                  src={`${base}/images/${product.gender}/${product.category}/${product.subcategory}/${product.imageUrl}`}
-                  alt={product.name}
-                  className="w-24 h-28 object-cover rounded"
-                />
-
-                <div>
-                  <h4 className="text-lg font-medium">{product.name}</h4>
-                  <p className="text-sm text-gray-700">
-                    ₹{product.price} &nbsp; Size: {product.size}
-                  </p>
-                  <div className="flex flex-col gap-2 sm:flex-row sm:gap-5 lg:gap-20">
-
-                    <div>
-
-                      <p className="text-sm text-gray-500">
-                        Rental Start: {new Date(item.rentalStartDate).toDateString()}
-                      </p>
-                      <p className="text-sm  text-gray-500">
-                        Rental End: {new Date(item.rentalEndDate).toDateString()}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-600">
-                        Expected Delivery: {delivery}
-                      </p>
-
-                      <p className="text-sm text-gray-600">
-                        Expected Pickup: {pickup}
-                      </p>
-                    </div>
-                  </div>
+    if (loading) {
+        return (
+            <>
+                <Navbar />
+                <div className="min-h-screen flex items-center justify-center">
+                    <p className="text-xl text-gray-600">Loading order details...</p>
                 </div>
-              </div>
-            );
-          })
-        )}
+                <Footer />
+            </>
+        );
+    }
 
-        {orders.length > 0 && (
-          <div className="flex justify-between mt-3 text-lg font-semibold">
-            <span>Total Amount</span>
-            <span>₹{orders.totalAmount}</span>
-          </div>
-        )}
-      </div>
+    if (!order) {
+        return (
+            <>
+                <Navbar />
+                <div className="min-h-screen flex items-center justify-center">
+                    <p className="text-xl text-gray-600">Loading your order...</p>
+                </div>
+                <Footer />
+            </>
+        );
+    }
 
-      <div className="text-center mt-8">
+    return (
+        <>
+            <Navbar />
 
-        <button
-          onClick={() => navigate("/")}
-          className='bg-[#602e74] text-white px-16 py-3 text-md font-semibold'
-        >
-          Continue Shopping
-        </button>
+            <div className="max-w-5xl mx-auto p-6 my-8">
+                <h1 className="text-2xl font-bold text-gray-800 mb-1">
+                    Order Placed Successfully!
+                </h1>
+                <p className="text-gray-600">
+                    Thank you for your order. We'll send you a confirmation email shortly.
+                </p>
 
-      </div>
+                {/* Order Details */}
+                <div className="bg-white rounded-lg shadow-md p-2 mb-4">
+                    <h2 className="text-xl font-semibold  border-b pb-2">
+                        Order Details
+                    </h2>
 
-      <Footer />
-    </>
-  );
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-1 mb-6">
+                        <p className="text-sm text-gray-600">Order Status :  {order.orderStatus}</p>
+                        <p className="text-sm text-gray-600">Order Date: {formatDate(order.placedAt)}</p>
+                        <p className="text-sm text-gray-600">Payment Method: {order.payment?.method}</p>
+                        <p className="text-sm text-gray-600">Payment Status: {order.payment?.status}</p>
+                    </div>
+                </div>
+
+                {/* Items */}
+                <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 className="text-2xl font-semibold mb-4 border-b pb-3">
+                        Order Items
+                    </h2>
+
+                    <div className="space-y-6">
+                        {order.items?.map((item, idx) => {
+                            const dates = calculateDates(
+                                item.rentalStartDate,
+                                item.rentalDuration || 2
+                            );
+
+                            return (
+                                <div
+                                    key={idx}
+                                    className="flex flex-col sm:flex-row gap-4 border-b pb-4 last:border-b-0"
+                                >
+                                    <img
+                                        src={item.imageUrl}
+                                        alt={item.name}
+                                        className="w-full sm:w-32 h-40 object-cover rounded"
+                                    />
+
+                                    <div className="flex-1">
+                                        <h3 className="text-lg font-semibold text-gray-800">
+                                            {item.name}
+                                        </h3>
+                                        <p className="text-sm text-gray-600">
+                                            Size: {item.size}
+                                        </p>
+                                        <p className="text-sm text-gray-600">
+                                            Price: ₹{item.price} / day
+                                        </p>
+
+                                        <div className="mt-3 space-y-1">
+                                            <p className="text-sm text-gray-700">
+                                                <span className="font-semibold">Event Date:</span>{' '}
+                                                {formatDate(item.rentalStartDate)}
+                                            </p>
+                                            <p className="text-sm text-gray-700">
+                                                <span className="font-semibold">Return Date:</span>{' '}
+                                                {dates.returnDate}
+                                            </p>
+                                            <p className="text-sm text-gray-700">
+                                                <span className="font-semibold">
+                                                    Expected Delivery:
+                                                </span>{' '}
+                                                {dates.delivery}
+                                            </p>
+                                            <p className="text-sm text-gray-700">
+                                                <span className="font-semibold">
+                                                    Expected Pickup:
+                                                </span>{' '}
+                                                {dates.pickup}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="text-right sm:text-left">
+                                        <p className="text-lg font-bold text-gray-800">
+                                            ₹{item.price * (item.rentalDuration || 2)}
+                                        </p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+
+
+                {/* Price Summary */}
+                <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 className="text-xl font-semibold pb-2">
+                        Price Summary
+                    </h2>
+
+                    <div>
+                        <div className="flex justify-between text-gray-700">
+                            <span>Subtotal</span>
+                            <span className="font-semibold">Rs.{order.totalAmount}</span>
+                        </div>
+
+                        {order.refundableDeposit > 0 && (
+                            <div className="flex justify-between text-gray-700 pt-2">
+                                <div>
+                                    <p className="font-semibold">Refundable Deposit</p>
+                                    <p className="text-sm text-gray-500">
+                                        Will be refunded after return
+                                    </p>
+                                </div>
+                                <span className="font-semibold">
+                                    Rs.{order.refundableDeposit}
+                                </span>
+                            </div>
+                        )}
+
+                        <div className="flex justify-between text-xl font-bold text-gray-900   pt-3">
+                            <span>Total Amount</span>
+                            <span>
+                                Rs.{order.totalAmount + (order.refundableDeposit || 0)}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button
+                        onClick={() => navigate('/myaccount/orders')}
+                        className="bg-gray-800 text-white px-8 py-3 rounded font-semibold hover:bg-gray-700"
+                    >
+                        View All Orders
+                    </button>
+                    <button
+                        onClick={() => navigate('/')}
+                        className="bg-[#602e74] text-white px-8 py-3 rounded font-semibold hover:bg-[#6b4e7f]"
+                    >
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+
+            <Footer />
+        </>
+    );
 };
 
 export default OrderSummary;

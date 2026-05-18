@@ -18,8 +18,6 @@ const Dashboard = () => {
       if (user) {
         const token = await user.getIdToken(true);
 
-        // console.log('Firebase ID Token:', token);
-
         try {
           const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/userinfo`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -124,4 +122,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

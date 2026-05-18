@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import SearchOverlay from './SeachOverlay';
+import SearchOverlay from './SearchOverlay';
 import CartDrawer from './CartDrawer';
 import { CartContext } from '../context/CartContext';
 import { getAuth } from "firebase/auth";
@@ -9,9 +9,9 @@ const Navbar = () => {
     const [showSearch, setShowSearch] = useState(false);
     const [showCart, setShowCart] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [menuLevel, setMenuLevel] = useState('main'); // 'main', 'women', 'men', 'category'
-    const [selectedWear, setSelectedWear] = useState(null); // 'women' or 'men'
-    const [selectedCategory, setSelectedCategory] = useState(null); // 'clothing', 'accessories', etc.
+    const [menuLevel, setMenuLevel] = useState('main');
+    const [selectedWear, setSelectedWear] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
 
 
@@ -22,7 +22,6 @@ const Navbar = () => {
 
     const handleRedirect = (path) => {
         if (path === '/search') setShowSearch(true);
-        else if (path === '/cart') setShowCart(true);
         else navigate(path);
     };
 
@@ -45,20 +44,20 @@ const Navbar = () => {
                         <div className="absolute top-full left-0 bg-white/95 pt-[2rem] pb-[3rem] px-[4rem] shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-50 min-w-[300px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-row gap-[4rem] -translate-x-[40%]">
                             <div className="flex flex-col gap-[0.3rem]">
                                 <h4 className="text-[1.2rem] mb-[0.6rem] font-semibold text-[#5c1d75] uppercase">Clothing</h4>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/anarkalis')}>Anarkalis</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/gowns')}>Gowns</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/indoWesterns')}>Indo-Western</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/lehengas')}>Lehengas</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/sarees')}>Sarees</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/anarkali')}>Anarkalis</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/gown')}>Gowns</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/indowestern')}>Indo-Western</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/lehenga')}>Lehengas</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/clothing/saree')}>Sarees</p>
                             </div>
 
                             <div className="flex flex-col gap-[0.3rem]">
                                 <h4 className="text-[1.2rem] mb-[0.6rem] font-semibold text-[#5c1d75] uppercase">ACCESSORIES</h4>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/bags')}>Bags</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/banglesbracelets')}>Bangles & Bracelets</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/earrings')}>Earrings</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/necklaces')}>Necklaces</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/rings')}>Rings</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/bag')}>Bags</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/banglesbracelet')}>Bangles & Bracelets</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/earring')}>Earrings</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/necklace')}>Necklaces</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/women/accessories/ring')}>Rings</p>
                             </div>
 
                             <div className="flex flex-col gap-[0.3rem]">
@@ -85,16 +84,16 @@ const Navbar = () => {
                         <div className="absolute top-full left-0 bg-white/95 pt-[2rem] pb-[3rem] px-[4rem] shadow-[0_4px_12px_rgba(0,0,0,0.1)] z-50 min-w-[300px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-row gap-[4rem] -translate-x-[40%]">
                             <div className="flex flex-col gap-[0.2rem]">
                                 <h4 className="text-[1.2rem] mb-[0.6rem] font-semibold text-[#5c1d75] uppercase">Clothing</h4>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/clothing/bandhgalas')}>Bandhgalas</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/clothing/kurtapajamas')}>Kurta Pajamas</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/clothing/indowesterns')}>IndoWesterns</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/clothing/suits')}>Suits</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/clothing/bandhgala')}>Bandhgalas</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/clothing/kurtapajama')}>Kurta Pajamas</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/clothing/indowestern')}>indowesterns</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/clothing/suit')}>Suits</p>
                             </div>
 
                             <div className="flex flex-col gap-[0.3rem]">
                                 <h4 className="text-[1.2rem] mb-[0.6rem] font-semibold text-[#5c1d75] uppercase">ACCESSORIES</h4>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/accessories/tiesBowTies')}>Ties & Bow Ties</p>
-                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/accessories/necklaces')}>Necklace</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/accessories/tieBowTie')}>Ties & Bow Ties</p>
+                                <p className="text-[1rem] text-[#504f4f] my-[5px] cursor-pointer hover:text-[#63456f] hover:font-bold" onClick={() => handleRedirect('/men/accessories/necklace')}>Necklace</p>
                             </div>
 
                             <div className="flex flex-col gap-[0.3rem]">
@@ -137,10 +136,13 @@ const Navbar = () => {
                         }}
                     ></i>
 
-                    <Link to="#" className="cart-icon" onClick={() => setShowCart(true)}>
-                        <i className="fas fa-shopping-bag text-[20px] text-[rgba(92,34,116,0.83)] hover:text-[#888] cursor-pointer" title="Cart"></i>
-                        {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-                    </Link>
+                    <div className="cart-icon" onClick={() => setShowCart(true)}>
+                        <i className="fas fa-shopping-bag text-[21px] cursor-pointer text-[rgba(85,38,105,0.834)]"></i>
+                        {cartItems.length > 0 && (
+                            <span className="cart-count">{cartItems.length}</span>
+                        )}
+                    </div>
+
 
                 </div>
 
@@ -177,11 +179,17 @@ const Navbar = () => {
                     ></i>
 
 
-                    <i className="fas fa-search cursor-pointer text-xl text-[rgba(85,38,105,0.834)] hover:scale-110 transition-transform duration-200" onClick={() => handleRedirect('/search')} title="Search"></i>
-                    <Link to="/Cart" className="cart-icon" title="Cart">
+                    <i className="fas fa-search cursor-pointer text-xl text-[rgba(85,38,105,0.834)] hover:scale-110 transition-transform duration-200"
+                        onClick={() => handleRedirect('/search')} title="Search"></i>
+
+                    <div className="cart-icon" title="Cart" onClick={() => setShowCart(true)}>
                         <i className="fas fa-shopping-bag cursor-pointer text-xl text-[rgba(85,38,105,0.834)] hover:scale-110 transition-transform duration-200"></i>
-                        {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-                    </Link>
+
+                        {cartCount > 0 && (
+                            <span className="cart-count">{cartCount}</span>
+                        )}
+                    </div>
+
                 </div>
 
             </div >
@@ -307,22 +315,22 @@ const Navbar = () => {
 
                                     {(selectedWear === 'women' && selectedCategory === 'Clothing') && (
                                         <>
-                                            <p onClick={() => handleRedirect('/women/clothing/anarkalis')}>  Anarkalis </p>
-                                            <p onClick={() => handleRedirect('/women/clothing/gowns')}>  Gowns  </p>
-                                            <p onClick={() => handleRedirect('/women/clothing/indoWesterns')}> Indo-Western  </p>
-                                            <p onClick={() => handleRedirect('/women/clothing/lehengas')}> Lehengas  </p>
-                                            <p onClick={() => handleRedirect('/women/clothing/sarees')} >  Sarees </p>
+                                            <p onClick={() => handleRedirect('/women/clothing/anarkali')}>  Anarkalis </p>
+                                            <p onClick={() => handleRedirect('/women/clothing/gown')}>  Gowns  </p>
+                                            <p onClick={() => handleRedirect('/women/clothing/indowestern')}> Indo-Western  </p>
+                                            <p onClick={() => handleRedirect('/women/clothing/lehenga')}> Lehengas  </p>
+                                            <p onClick={() => handleRedirect('/women/clothing/saree')} >  Sarees </p>
                                         </>
 
                                     )}
 
                                     {(selectedWear === 'women' && selectedCategory === 'Accessories') && (
                                         <>
-                                            <p onClick={() => handleRedirect('/women/accessories/bags')}>Bags</p>
-                                            <p onClick={() => handleRedirect('/women/accessories/banglesbracelets')}>Bangles & Bracelets</p>
-                                            <p onClick={() => handleRedirect('/women/accessories/earrings')}>Earrings</p>
-                                            <p onClick={() => handleRedirect('/women/accessories/necklaces')}>Necklaces</p>
-                                            <p onClick={() => handleRedirect('/women/accessories/rings')}>Rings</p>
+                                            <p onClick={() => handleRedirect('/women/accessories/bag')}>Bags</p>
+                                            <p onClick={() => handleRedirect('/women/accessories/banglesbracelet')}>Bangles & Bracelets</p>
+                                            <p onClick={() => handleRedirect('/women/accessories/earring')}>Earrings</p>
+                                            <p onClick={() => handleRedirect('/women/accessories/necklace')}>Necklaces</p>
+                                            <p onClick={() => handleRedirect('/women/accessories/ring')}>Rings</p>
                                         </>
                                     )}
 
@@ -339,16 +347,16 @@ const Navbar = () => {
 
                                     {(selectedWear === 'men' && selectedCategory === 'Clothing') && (
                                         <>
-                                            <p onClick={() => handleRedirect('men/clothing/bandhgalas')}>Bandhgalas</p>
-                                            <p onClick={() => handleRedirect('men/clothing/kurtapajamas')}>Kurta Pajamas</p>
-                                            <p onClick={() => handleRedirect('men/clothing/indowesterns')}>IndoWesterns</p>
-                                            <p onClick={() => handleRedirect('men/clothing/suits')}>Suits</p>
+                                            <p onClick={() => handleRedirect('/men/clothing/bandhgala')}>Bandhgalas</p>
+                                            <p onClick={() => handleRedirect('/men/clothing/kurtapajama')}>Kurta Pajamas</p>
+                                            <p onClick={() => handleRedirect('/men/clothing/indowestern')}>Indo Western</p>
+                                            <p onClick={() => handleRedirect('/men/clothing/suit')}>Suits</p>             
                                         </>)}
 
                                     {(selectedWear === 'men' && selectedCategory === 'Accessories') && (
                                         <>
-                                            <p onClick={() => handleRedirect('/men/accessories/tiesBowTies')}>Ties & Bow Ties</p>
-                                            <p onClick={() => handleRedirect('/men/accessories/necklaces')}>Necklace</p>
+                                            <p onClick={() => handleRedirect('/men/accessories/tieBowTie')}>Ties & Bow Ties</p>
+                                            <p onClick={() => handleRedirect('/men/accessories/necklace')}>Necklace</p>
                                         </>
                                     )}
 
@@ -390,4 +398,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

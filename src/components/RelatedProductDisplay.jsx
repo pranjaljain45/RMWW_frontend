@@ -8,57 +8,105 @@ import RelatedProduct from './RelatedProducts';
 const formatCategory = (str) =>
     str ? str.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : '';
 
+const formatDate = (date) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+};
+
 const RelatedProductDisplay = () => {
     const location = useLocation();
     const [product, setProduct] = useState(null);
     const [imageURL, setImageURL] = useState('');
-    const [isAdded, setIsAdded] = useState(false);
     const [alert, setAlert] = useState({ show: false, message: '', type: 'success' });
     const { cartItems, setCartItems } = useContext(CartContext);
-    const today = new Date().toISOString().split('T')[0];
-
+    const today = formatDate(new Date());
 
     const [eventDate, setEventDate] = useState("");
     const [deliveryWindow, setDeliveryWindow] = useState("");
-    const [returnDate, setReturnDate] = useState("");
     const [pickupWindow, setPickupWindow] = useState("");
-    const [rentalDuration, setRentalDuration] = useState(3);
+    const [rentalDuration, setRentalDuration] = useState(2);
+    const [returnDate, setReturnDate] = useState("");
+
+
+    const [isAdded, setIsAdded] = useState(false);
+    const [existingCartItem, setExistingCartItem] = useState(null); // store the cart item if exists
+
+    const totalPrice = product ? rentalDuration * product.price : 0;
 
     const { gender, category, subcategory, id } = useParams();
 
 
     useEffect(() => {
-        if (eventDate) {
-            const event = new Date(eventDate);
-
-            // Delivery ends: before event day
-            const endDelivery = new Date(event);
-            endDelivery.setDate(event.getDate() - 1);
-
-            // format DD-MM-YYYY
-            const formatDate = (date) => {
-                const d = new Date(date);
-                const day = String(d.getDate()).padStart(2, "0");
-                const month = String(d.getMonth() + 1).padStart(2, "0");
-                const year = d.getFullYear();
-                return `${day}-${month}-${year}`;
-            };
-
-            setDeliveryWindow(` ${formatDate(endDelivery)}`);
-
-            //  Calculate return date (based on rentalDuration) 
-            const ret = new Date(event);
-            ret.setDate(ret.getDate() + rentalDuration - 1);
-            setReturnDate(ret.toISOString().split("T")[0]);
-
-            // Pickup  day AFTER return date 
-            const pickupEnd = new Date(ret);
-            pickupEnd.setDate(ret.getDate() + 2);
-            setPickupWindow(` ${formatDate(pickupEnd)}`);
-
+        if (location.state?.product) {
+            setProduct(location.state.product);
+            localStorage.setItem('selectedProduct', JSON.stringify(location.state.product));
+        } else {
+            const storedProduct = localStorage.getItem('selectedProduct');
+            if (storedProduct) setProduct(JSON.parse(storedProduct));
         }
-    }, [eventDate, rentalDuration]);
+    }, [location.state]);
 
+
+    // When product loads, restore existing cart item values
+    useEffect(() => {
+        if (!product) return;
+
+        // Check for this specific product in cart using both id and _id
+        const productId = product.id || product._id;
+        const cartItem = cartItems.find(item => {
+            const cartItemId = item.id || item._id;
+            return cartItemId === productId;
+        });
+        
+        setExistingCartItem(cartItem || null);
+
+        if (cartItem) {
+            // This specific product is in cart, restore its values
+            setEventDate(cartItem.eventDate);
+            setRentalDuration(cartItem.rentalDuration);
+            setReturnDate(cartItem.returnDate);
+            setPickupWindow(cartItem.pickupWindow);
+            setIsAdded(true);
+        } else {
+            // This product is NOT in cart, reset to defaults
+            setEventDate('');
+            setRentalDuration(2);
+            setReturnDate('');
+            setPickupWindow('');
+            setIsAdded(false);
+        }
+    }, [product, cartItems]);
+
+
+    useEffect(() => {
+        if (!eventDate) return;
+
+        const event = new Date(eventDate);
+
+        const endDelivery = new Date(event);
+        endDelivery.setDate(event.getDate() - 1);
+        setDeliveryWindow(`${formatDate(endDelivery)}`);
+
+        const returnDt = new Date(event);
+        returnDt.setDate(returnDt.getDate() + rentalDuration - 1);
+        setReturnDate(returnDt.toISOString());  // Store as ISO string
+
+        // Pickup is 2 days AFTER return date
+        const pickupEnd = new Date(returnDt);
+        pickupEnd.setDate(returnDt.getDate() + 2);
+        setPickupWindow(pickupEnd.toISOString());  // Store as ISO string
+
+        if (existingCartItem) {
+            if (existingCartItem.eventDate === eventDate && existingCartItem.rentalDuration === rentalDuration) {
+                setIsAdded(true); //disable added to checkout
+            } else {
+                setIsAdded(false); // enable add to checkout
+            }
+        }
+    }, [eventDate, rentalDuration, existingCartItem]);
 
 
     // Set product from localStorage
@@ -71,76 +119,94 @@ const RelatedProductDisplay = () => {
                 const data = await res.json();
 
                 const found = data.find(
-                    (item) => String(item.id) === String(id) || String(item._id) === String(id)
+                    (item) => String(item._id) === String(id)
                 );
 
                 if (found) {
                     setProduct(found);
-                    localStorage.setItem("selectedProduct", JSON.stringify(found));
                 }
             } catch (err) {
                 console.error("Error fetching product:", err);
             }
         };
 
-        if (location.state?.product) {
-            setProduct(location.state.product);
-            localStorage.setItem("selectedProduct", JSON.stringify(location.state.product));
-        } else {
-            const storedProduct = localStorage.getItem("selectedProduct");
-            if (storedProduct) {
-                const parsed = JSON.parse(storedProduct);
-                if (parsed.id === id || parsed._id === id) {
-                    setProduct(parsed);
-                } else {
-                    fetchProduct();
-                }
-            } else {
-                fetchProduct();
-            }
-        }
-    }, [gender, category, subcategory, id, location.state]);
+        fetchProduct();
+    }, [gender, category, subcategory, id]);
 
 
 
     useEffect(() => {
         if (!product) return;
-        const base = import.meta.env.VITE_BACKEND_URL;
-        const url2 = `${base}/images/${product.gender}/${product.category}/${product.subcategory}/${product.imageUrl}/${product.id}`;
-        const url1 = `${base}/images/${product.gender}/${product.category}/${product.subcategory}s/${product.imageUrl}/${product.id}`;
-
-        fetch(url1, { method: 'HEAD' }).then((res) => {
-            if (res.ok) { setImageURL(url1); } else {
-                return fetch(url2, { method: 'HEAD' }).then((res2) => {
-                    if (res2.ok) setImageURL(url2);
-                    else setImageURL('');
-                });
-            }
-        }).catch(() => setImageURL(''));
+        // imageUrl is already a Cloudinary URL
+        setImageURL(product.imageUrl);
     }, [product]);
 
 
     const handleAddToCart = () => {
-        if (!eventDate) {
-            setAlert({ show: true, message: 'Please select your event date.', type: 'error' });
-        } else if (new Date(eventDate) < new Date(today)) {
-            setAlert({ show: true, message: 'Event date cannot be in the past.', type: 'warning' });
-        } else {
-            const cartItem = {
-                ...product,
-                eventDate,             // user-selected event date
-                returnDate,            // auto-generated return date
-            };
+        const finalEventDate = eventDate || existingCartItem?.eventDate;
 
-            const updated = [...cartItems, cartItem];
-            setCartItems(updated);
-            localStorage.setItem('cart', JSON.stringify(updated));
-            setIsAdded(true);
-            setAlert({ show: true, message: 'Added to cart!', type: 'success' });
+        if (!finalEventDate) {
+            setAlert({ show: true, message: 'Please select your event date.', type: 'error' });
+            return;
         }
 
+        if (new Date(finalEventDate) < new Date(today)) {
+            setAlert({ show: true, message: 'Event date cannot be in the past.', type: 'warning' });
+            return;
+        }
+
+        // Prevent selecting event date less than 5 days from today
+        const minEventDate = new Date();
+        minEventDate.setDate(minEventDate.getDate() + 5);
+
+        if (new Date(finalEventDate) < minEventDate) {
+            setAlert({
+                show: true,
+                message: 'Event date must be at least 5 days from today.',
+                type: 'warning'
+            });
+            return;
+        }
+
+        if (isAdded) return; //no duplicates
+
+        const productId = product.id || product._id;
+
+        const newCartItem = {
+            ...product,
+            id: productId,  // Ensure id is set
+            size: product.size, // Explicitly include size
+            eventDate: finalEventDate,    // user-selected event date (YYYY-MM-DD format)
+            returnDate,             // ISO string
+            pickupWindow,           // ISO string
+            rentalDuration,
+            totalPrice: totalPrice,  // calculated total price
+        };
+
+        //add the current product in the prev array of products
+        const updatedCart = [...cartItems];
+        const cartItemIndex = cartItems.findIndex(item => {
+            const cartItemId = item.id || item._id;
+            return cartItemId === productId;
+        });
+
+        if (cartItemIndex > -1) {
+            // Update existing cart item with new dates/duration
+            updatedCart[cartItemIndex] = newCartItem;
+        } else {
+            // Add new product
+            updatedCart.push(newCartItem);
+        }
+
+        setCartItems(updatedCart);
+        //even if page refresh it should store
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        setIsAdded(true);
+
+        setAlert({ show: true, message: 'Added to cart!', type: 'success' });
         setTimeout(() => setAlert((a) => ({ ...a, show: false })), 2000);
     };
+
 
 
     if (!product) return <div className="text-center py-20">Product not found!</div>;
@@ -148,7 +214,6 @@ const RelatedProductDisplay = () => {
     return (
         <>
             <Navbar />
-
 
             <div className="hidden lg:flex lg:flex-col">
 
@@ -184,8 +249,7 @@ const RelatedProductDisplay = () => {
                         <div>
                             <p className="text-gray-800 font-semibold text-xl">{product.ownerName}</p>
                             <h1 className="text-xl font-semibold text-gray-900 mt-1">{product.name}</h1>
-                            <p className="text-md font-bold text-gray-900 mt-1">Rent: ₹{product.price}</p>
-                            {/* <p className="text-md text-gray-600">Refundable Deposit: ₹{product.price - 700}</p> */}
+                            <p className="text-md font-bold text-gray-900 mt-1">Rent: Rs.{product.price} / day</p>
                         </div>
 
 
@@ -223,15 +287,20 @@ const RelatedProductDisplay = () => {
                                         const val = parseInt(e.target.value);
                                         setRentalDuration(val);
 
-                                        // Calculate return date if event date is already selected
-                                        if (eventDate) {
-                                            const returnD = new Date(eventDate);
-                                            returnD.setDate(returnD.getDate() + val - 1);
-                                            setReturnDate(returnD.toISOString().split("T")[0]);
+                                        if (existingCartItem) {
+                                            if (
+                                                existingCartItem.eventDate === eventDate &&
+                                                existingCartItem.rentalDuration === val
+                                            ) {
+                                                setIsAdded(true);
+                                            } else {
+                                                setIsAdded(false);
+                                            }
                                         }
                                     }}
                                     className="border border-gray-400 py-2 w-40 rounded-md focus:outline-none"
                                 >
+                                    <option value={2}>2 Days</option>
                                     <option value={3}>3 Days</option>
                                     <option value={5}>5 Days</option>
                                     <option value={7}>7 Days</option>
@@ -249,32 +318,35 @@ const RelatedProductDisplay = () => {
                             {/* Return Date Display */}
                             {returnDate && (
                                 <p className="text-gray-700 mt-1 text-mb mb-0">
-                                    <b> Return Date: {returnDate.split("-").reverse().join("-")}</b>
+                                    <b> Return Date: {formatDate(returnDate)}</b>
                                 </p>
                             )}
 
                             {/* Expected Pickup Window */}
                             {pickupWindow && (
                                 <p className="text-gray-700 mt-1 text-mb mb-0">
-                                    <b>Expected pickup: {pickupWindow}</b>
+                                    <b>Expected pickup: {formatDate(pickupWindow)}</b>
                                 </p>
                             )}
 
-                        </div>
+                            <p className="text-mb font-bold mt-2">
+                                Rs.{product.price} × {rentalDuration} days = ₹{totalPrice}
+                            </p>
 
+                        </div>
 
 
                         {/* Add to Cart */}
                         <button
                             onClick={handleAddToCart}
                             disabled={isAdded}
-                            className={`mt-8 w-[10rem] px-6 py-3 rounded bg-[#602e74] text-white font-semibold hover:bg-[#6b4e7f] lg:w-[20rem]`}
+                            className={` w-[10rem] px-6 py-3 rounded bg-[#602e74] text-white font-semibold hover:bg-[#6b4e7f] lg:w-[20rem]`}
                         >
                             {isAdded ? 'Added' : 'Add To CheckOut'}
                         </button>
 
                         {/* Extra Info */}
-                        <div className="mt-10 space-y-4 text-gray-700 text-sm leading-relaxed">
+                        <div className="mt-4 space-y-1 text-gray-700 text-sm leading-relaxed">
                             <div><span className="font-semibold">Description:</span> {product.description}</div>
                             <div><span className="font-semibold">Stylist Notes:</span> {product.stylistNotes}</div>
                             <div><span className="font-semibold">Material & Care:</span> {product.materialCare}</div>
@@ -302,8 +374,8 @@ const RelatedProductDisplay = () => {
             )}
 
 
+            {/* mobile view */}
             <div className='flex flex-col lg:hidden '>
-
                 <div className="flex flex-col justify-items-center p-15 pt-5 pb-0 bg-white font-sans my-8 mb-0 sm:flex-row sm:gap-5">
                     {/*  Product Image */}
                     <div className=" h-[15rem]">
@@ -332,8 +404,7 @@ const RelatedProductDisplay = () => {
                         <div>
                             <p className="text-gray-800">{product.ownerName}</p>
                             <h1 className="text-md font-semibold text-gray-900 mt-1">{product.name}</h1>
-                            <p className="text-sm mt-2 text-gray-900">Rent: ₹{product.price}</p>
-                            {/* <p className="text-sm text-gray-600">Refundable Deposit: ₹{product.price - 500}</p> */}
+                            <p className="text-sm mt-2 text-gray-900">Rent: Rs.{product.price} / day</p>
                         </div>
 
 
@@ -357,7 +428,7 @@ const RelatedProductDisplay = () => {
                                 onChange={(e) => setEventDate(e.target.value)}
                             />
                             <p className="text-sm text-gray-700 mt-3 italic">
-                                📦 Please book at least <b>5 days before your event</b>. We deliver within this period.
+                                Please book at least <b>5 days before your event</b>. We deliver within this period.
                             </p>
 
                             {/* Delivery Duration Dropdown */}
@@ -369,15 +440,20 @@ const RelatedProductDisplay = () => {
                                         const val = parseInt(e.target.value);
                                         setRentalDuration(val);
 
-                                        // Calculate return date if event date is already selected
-                                        if (eventDate) {
-                                            const returnD = new Date(eventDate);
-                                            returnD.setDate(returnD.getDate() + val - 1);
-                                            setReturnDate(returnD.toISOString().split("T")[0]);
+                                        if (existingCartItem) {
+                                            if (
+                                                existingCartItem.eventDate === eventDate &&
+                                                existingCartItem.rentalDuration === val
+                                            ) {
+                                                setIsAdded(true);
+                                            } else {
+                                                setIsAdded(false);
+                                            }
                                         }
                                     }}
                                     className="border border-gray-400 py-2 w-40 rounded-md focus:outline-none"
                                 >
+                                    <option value={2}>2 Days</option>
                                     <option value={3}>3 Days</option>
                                     <option value={5}>5 Days</option>
                                     <option value={7}>7 Days</option>
@@ -390,21 +466,21 @@ const RelatedProductDisplay = () => {
                                 </p>
                             )}
 
-                            {/* Return Date  Display */}
                             {returnDate && (
                                 <p className="text-gray-700 mt-2 text-sm font-semibold">
-                                    Return Date: {returnDate.split("-").reverse().join("-")}
+                                    Return Date: {formatDate(returnDate)}
                                 </p>
                             )}
-
-
-                            {/* pickup date */}
 
                             {pickupWindow && (
                                 <p className="text-gray-700 mt-2 text-sm font-semibold">
-                                    Expected pickup: {pickupWindow}
+                                    Expected pickup: {formatDate(pickupWindow)}
                                 </p>
                             )}
+
+                            <p className="text-sm font-semibold mt-2">
+                                Rs.{product.price} × {rentalDuration} days = ₹{totalPrice}
+                            </p>
                         </div>
 
                         {/* Add to Cart */}
@@ -416,6 +492,11 @@ const RelatedProductDisplay = () => {
                             {isAdded ? 'Added' : 'Add To CheckOut'}
                         </button>
 
+                        <div className="mt-4 space-y-1 text-gray-700 text-sm leading-relaxed">
+                            <div><span className="font-semibold">Description:</span> {product.description}</div>
+                            <div><span className="font-semibold">Stylist Notes:</span> {product.stylistNotes}</div>
+                            <div><span className="font-semibold">Material & Care:</span> {product.materialCare}</div>
+                        </div>
 
                     </div>
 
@@ -437,3 +518,7 @@ const RelatedProductDisplay = () => {
 };
 
 export default RelatedProductDisplay;
+
+
+
+

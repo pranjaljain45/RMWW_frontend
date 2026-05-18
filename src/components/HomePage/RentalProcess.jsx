@@ -3,16 +3,14 @@ import rentalBannerImg from '../../assets/RentalBanner.jpg';
 
 const RentalProcess = () => {
     return (
-        <div className="px-8 lg:px-16 transform transition duration-3000 hover:scale-98">
+        <div className="px-8 transform transition duration-3000 hover:scale-98 lg:px-16">
 
-            <div className="flex flex-wrap items-center p-6 sm:p-10 mt-20 mx-4 bg-[#f4f0ec] text-[#3e3e3e] justify-around 
-                        font-poppins rounded-lg shadow-lg gap-5 flex-row xl:mx-25">
-
+            <div className="flex p-7 items-center bg-[#f8f3ee] text-[#3e3e3e] rounded-lg shadow-lg font-poppins sm:mx-8 mt-20">
                 {/* Left side: Steps */}
 
                 <div className='flex flex-col lg:w-md xl:w-2xl'>
 
-                    <div className="flex flex-row justify-center text-left gap-3 pb-5 ">
+                    <div className="flex justify-center gap-3 pb-5 ">
                         <h2 className="text-2xl sm:text-4xl font-bold text-[#55326a] m-0">RENTAL</h2>
                         <p className="text-2xl sm:text-4xl font-semibold text-[#6c4c3f] m-0">Process</p>
                     </div>
@@ -34,6 +32,7 @@ const RentalProcess = () => {
                     </div>
 
                 </div>
+
 
                 {/* Right side: Image */}
 

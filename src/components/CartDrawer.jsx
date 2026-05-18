@@ -3,6 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { FaTimes } from 'react-icons/fa';
 
+const formatDate = (date) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+};
+
+
 const CartDrawer = ({ onClose }) => {
     const navigate = useNavigate();
     const { cartItems, setCartItems } = useContext(CartContext);
@@ -13,9 +22,11 @@ const CartDrawer = ({ onClose }) => {
     };
 
     const handleProductClick = (item) => {
-        localStorage.setItem('selectedProduct', JSON.stringify(item));
+        const itemId =  item._id;
         onClose();
-        navigate('/productDisplay');
+        navigate(`/${item.gender}/${item.category}/${item.subcategory}/${itemId}`, {
+            state: { product: item }
+        });
     };
 
     const handleRemoveItem = (indexToRemove) => {
@@ -24,11 +35,9 @@ const CartDrawer = ({ onClose }) => {
         localStorage.setItem('cart', JSON.stringify(updated));
     };
 
-    //  CartItem Component
     const CartItem = ({ item, onClick, onRemove }) => {
-        const initialUrl = `${import.meta.env.VITE_BACKEND_URL}/images/${item.gender}/${item.category}/${item.subcategory}s/${item.imageUrl}`;
-        const fallbackUrl = `${import.meta.env.VITE_BACKEND_URL}/images/${item.gender}/${item.category}/${item.subcategory}/${item.imageUrl}`;
-        const [imgSrc, setImgSrc] = React.useState(initialUrl);
+        // imageUrl is already a Cloudinary URL
+        const imageUrl = item.imageUrl;
 
         return (
             <div
@@ -36,17 +45,16 @@ const CartDrawer = ({ onClose }) => {
                 onClick={onClick}
             >
                 <img
-                    src={imgSrc}
+                    src={imageUrl}
                     alt={item.name}
-                    onError={() => setImgSrc(fallbackUrl)}
                     className="w-[70px] h-[90px] object-cover rounded"
                 />
 
                 <div className="flex flex-col flex-1">
                     <p className="text-sm font-medium">{item.name}</p>
-                    <p className="text-sm text-gray-700">{item.ownerName}</p>
-                    <p className="text-sm text-gray-600">SIZE: {item.size}</p>
-                    <p className="text-sm font-medium">Rs. {item.price}</p>
+                    <p className="text-sm text-gray-800">Size: {item.size}</p>
+                    <p className="text-sm text-gray-800"> Duration: {formatDate(item.eventDate)} - {formatDate(item.returnDate)}</p>
+                    <p className="text-sm text-gray-800">Total Price : Rs.{item.totalPrice || (item.price * item.rentalDuration)}</p>
                 </div>
 
                 <button
@@ -63,7 +71,7 @@ const CartDrawer = ({ onClose }) => {
     };
 
     return (
-        <div className=" hidden fixed inset-0 bg-white/30 backdrop-blur-[1px] z-[999] sm:flex justify-end">
+        <div className=" fixed inset-0 bg-white/30 backdrop-blur-[1px] z-[999] sm:flex justify-end">
 
             <div className="bg-white w-[400px] h-full shadow-lg px-8 py-6  flex flex-col md:w-[450px]" >
                 <div className="flex text-center items-center justify-around pt-7 mb-6 ">
@@ -106,7 +114,7 @@ const CartDrawer = ({ onClose }) => {
                         <button
                             onClick={() => {
                                 onClose();
-                                navigate('/Cart');
+                                navigate('/CartSummary');
                             }}
                             className="bg-[#602e74] text-white mt-6 py-2 rounded font-semibold"
                         >
