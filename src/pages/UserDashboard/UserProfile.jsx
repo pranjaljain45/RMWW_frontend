@@ -17,15 +17,13 @@ const UserProfile = () => {
     const [saving, setSaving] = useState(false);
 
     useEffect(() => {
-        async function fetchUser() {
-            const auth = getAuth();
-            const user = auth.currentUser;
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const token = await user.getIdToken();
 
                 try {
                     const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/userinfo`, {
-
                         headers: { Authorization: `Bearer ${token}` },
                     });
                     setUserData(res.data);
@@ -42,10 +40,9 @@ const UserProfile = () => {
                     console.error("Error fetching user:", err.response?.status, err.response?.data || err.message);
                 }
             }
-        }
-        fetchUser();
+        });
+        return () => unsubscribe();
     }, []);
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;

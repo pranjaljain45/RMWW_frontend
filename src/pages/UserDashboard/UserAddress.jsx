@@ -52,12 +52,14 @@ const UserAddress = () => {
                 alert("Address saved successfully!");
                 setForm({
                     name: "",
+                    email: "",
                     phone: "",
-                    pincode: "",
-                    addressLine: "",
+                    addressLine1: "",
+                    addressLine2: "",
                     city: "",
                     state: "",
-                    country: "",
+                    country: "India",
+                    pinCode: ""
                 });
             } else {
                 alert(data.message || "Failed to save address");
