@@ -97,7 +97,7 @@ const ProductDisplay = () => {
 
         const endDelivery = new Date(event);
         endDelivery.setDate(event.getDate() - 1);
-        setDeliveryWindow(`${formatDate(endDelivery)}`);
+        setDeliveryWindow(endDelivery.toISOString());
 
         const returnDt = new Date(event);
         returnDt.setDate(returnDt.getDate() + rentalDuration - 1);
