@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -11,16 +11,14 @@ const OrderSummary = () => {
     const auth = getAuth();
 
     useEffect(() => {
-        // Fetch the current order from database
-        const fetchOrder = async () => {
+        // Use onAuthStateChanged to ensure auth state is fully initialized
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                setLoading(false);
+                return;
+            }
+
             try {
-                const user = auth.currentUser;
-
-                if (!user) {
-                    setLoading(false);
-                    return;
-                }
-
                 const uid = user.uid;
                 const res = await fetch(
                     `${import.meta.env.VITE_BACKEND_URL}/api/orders/curr-order/${uid}`
@@ -35,9 +33,9 @@ const OrderSummary = () => {
             } finally {
                 setLoading(false);
             }
-        };
+        });
 
-        fetchOrder();
+        return () => unsubscribe();
     }, [auth]);
 
     const formatDate = (date) => {
@@ -90,13 +88,12 @@ const OrderSummary = () => {
             <>
                 <Navbar />
                 <div className="min-h-screen flex items-center justify-center">
-                    <p className="text-xl text-gray-600">Loading your order...</p>
+                    <p className="text-xl text-gray-600">No order found.</p>
                 </div>
                 <Footer />
             </>
         );
     }
-
     return (
         <>
             <Navbar />

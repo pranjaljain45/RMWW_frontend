@@ -104,11 +104,11 @@ const ProductDisplay = () => {
         // Store as ISO string for proper date handling
         setReturnDate(returnDt.toISOString());
 
-        const pickupEnd = new Date(event);
+        const pickupEnd = new Date(returnDt);
         pickupEnd.setDate(pickupEnd.getDate() + 2);
+        
         // Store as ISO string for proper date handling
         setPickupWindow(pickupEnd.toISOString());
-
         if (existingCartItem) {
             const same =
                 existingCartItem.eventDate === eventDate &&
@@ -301,7 +301,7 @@ const ProductDisplay = () => {
                             )}
 
                             <p className="text-mb font-bold mt-2">
-                                Rs.{product.price} × {rentalDuration} days = Rs. ₹{totalPrice}
+                                Rs.{product.price} × {rentalDuration} days = Rs.{totalPrice} 
                             </p>
 
                         </div>
@@ -458,7 +458,7 @@ const ProductDisplay = () => {
                             )}
 
                             <p className="text-sm font-semibold mt-2">
-                                Rs.{product.price} × {rentalDuration} days = ₹{totalPrice}
+                                Rs.{product.price} × {rentalDuration} days = Rs.{totalPrice}
                             </p>
                         </div>
 

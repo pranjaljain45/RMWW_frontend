@@ -3,7 +3,7 @@ import { useLocation, Link, useParams } from 'react-router-dom';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import { CartContext } from '../context/CartContext';
-import RelatedProduct from './RelatedProducts';
+import RelatedProducts from './RelatedProducts';
 
 const formatCategory = (str) =>
     str ? str.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : '';
@@ -356,7 +356,7 @@ const RelatedProductDisplay = () => {
 
 
                 {/* related product */}
-                <RelatedProduct
+                <RelatedProducts
                     gender={product.gender}
                     category={product.category}
                     subcategory={product.subcategory}

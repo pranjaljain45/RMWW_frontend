@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { CartContext } from '../context/CartContext';
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -12,6 +12,7 @@ import razorpaylogo from '../assets/razorpay_logo.png';
 const Checkout = () => {
   const { cartItems, clearCart } = useContext(CartContext);
   const [userEmail, setUserEmail] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
   const [method, setMethod] = useState('cod');
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
@@ -27,11 +28,18 @@ const Checkout = () => {
 
   useEffect(() => {
     const auth = getAuth();
-    const user = auth.currentUser;
+    // Use onAuthStateChanged to ensure auth state is fully initialized
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user.email);
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+        setUserEmail('');
+      }
+    });
 
-    if (user) {
-      setUserEmail(user.email);
-    }
+    return () => unsubscribe();
   }, []);
 
   // Check availability for all cart items
@@ -96,8 +104,11 @@ const Checkout = () => {
 
 
   const handlePlaceOrder = async () => {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    if (!currentUser) {
+      toast.error("Please login to place an order!", { position: "top-right" });
+      navigate('/login');
+      return;
+    }
 
     if (!name || !street || !city || !state || !zipcode || !phone) {
       toast.error("Please fill all delivery information fields!", { position: "top-right" });
@@ -139,7 +150,7 @@ const Checkout = () => {
 
     // Prepare order data
     const orderData = {
-      uid: user.uid,
+      uid: currentUser.uid,
       email: userEmail,
       items: cartItems.map(item => ({
         productId: item._id || item.id || item.productId,

@@ -133,11 +133,10 @@ const Signup = () => {
                     <div className='flex gap-8'>
                         <button
                             type="submit"
-                            className="bg-[#602e74] mt-5 text-white px-8  rounded-md font-medium text-md hover:bg-[#4f2660] transition"
+                            className="bg-[#602e74] mt-5 text-white px-8 py-3 rounded-md font-medium text-md hover:bg-[#4f2660] transition"
                         >
                             Submit
                         </button>
-
 
                         <button
                             type="button"

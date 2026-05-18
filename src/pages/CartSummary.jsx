@@ -76,8 +76,8 @@ const CartSummary = () => {
                     autoClose: 3000,
                 });
 
-                // Set empty availability status so items don't show as unavailable
-                setAvailabilityStatus(cartItems.map(() => ({ available: true })));
+                // Set items as unavailable when check fails
+                setAvailabilityStatus(cartItems.map(() => ({ available: false, message: 'Unable to verify availability' })));
             }
         } catch (error) {
             console.error('Error checking cart availability:', error);
@@ -86,13 +86,12 @@ const CartSummary = () => {
                 autoClose: 3000,
             });
             
-            // Set empty availability status so items don't show as unavailable
-            setAvailabilityStatus(cartItems.map(() => ({ available: true })));
+            // Set items as unavailable when check fails
+            setAvailabilityStatus(cartItems.map(() => ({ available: false, message: 'Unable to verify availability' })));
         } finally {
             setIsCheckingAvailability(false);
         }
     };
-
     const handleRemoveItem = (index) => {
         const updated = cartItems.filter((_, i) => i !== index);
         setCartItems(updated);

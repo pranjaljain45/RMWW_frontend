@@ -6,8 +6,7 @@ const RentalBanner = () => {
   return (
     <>
 
-      <div className="px-8 transform transition duration-3000 hover:scale-98 lg:px-16">
-
+      <div className="px-8 transform transition duration-1000 hover:scale-98 lg:px-16">
         <div className="flex flex-wrap p-7 items-center bg-[#f8f3ee] text-[#3e3e3e] rounded-lg shadow-lg font-poppins sm:mx-8 mt-20 gap-9">
 
           {/* Left side */}
