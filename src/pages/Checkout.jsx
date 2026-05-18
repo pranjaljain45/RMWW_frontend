@@ -96,11 +96,8 @@ const Checkout = () => {
 
 
   const handlePlaceOrder = async () => {
-    if (!currentUser) {
-      toast.error("Please login to place an order!", { position: "top-right" });
-      navigate('/login');
-      return;
-    }
+   const auth = getAuth();
+    const user = auth.currentUser;
     
     if (!name || !street || !city || !state || !zipcode || !phone) {
       toast.error("Please fill all delivery information fields!", { position: "top-right" });
@@ -142,7 +139,7 @@ const Checkout = () => {
 
     // Prepare order data
     const orderData = {
-      uid: currentUser.uid,
+      uid: user.uid,
       email: userEmail,
       items: cartItems.map(item => ({
         productId: item._id || item.id || item.productId,
